@@ -6,7 +6,7 @@
 #    By: evogel <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/07 16:47:44 by evogel            #+#    #+#              #
-#    Updated: 2019/04/09 20:26:45 by evogel           ###   ########.fr        #
+#    Updated: 2019/04/10 14:45:40 by evogel           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,9 +18,11 @@ NAME = fractol
 
 SRCS = main.c \
 	   init.c \
+	   fun_tabs_init.c \
 	   hook_functions.c \
 	   event_funs1.c \
 	   event_funs2.c\
+	   event_funs3.c\
 	   colors1.c \
 	   make_image.c \
 	   write_ppm.c \

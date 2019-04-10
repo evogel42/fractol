@@ -6,7 +6,7 @@
 /*   By: evogel <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/08 18:53:22 by evogel            #+#    #+#             */
-/*   Updated: 2019/04/09 13:55:35 by evogel           ###   ########.fr       */
+/*   Updated: 2019/04/10 17:34:04 by evogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,3 +41,23 @@ void	color1(int i, void *param)
 		i++;
 	}
 }
+
+/*void	color1(int i, void *param)
+{
+	static t_color	pal[6] = {0x000064, 0xFF0064, 0xFFFF64, 0xFFFFFF, 0x00FFFF, 0x0000FF};
+	int				size;
+	t_palette		*col;
+
+	col = &((t_fractal *)param)->color;
+	if (col->pal != NULL)
+		free(col->pal);
+	if(!(col->pal = (t_color *)ft_memalloc(sizeof(t_color) * col->range)))
+		exit(-1);
+	size = 6;
+	i = 0;
+	while (i < col->range)
+	{
+
+		i++;
+	}
+}*/

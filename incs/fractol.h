@@ -6,7 +6,7 @@
 /*   By: brichard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 11:13:35 by brichard          #+#    #+#             */
-/*   Updated: 2019/04/09 20:23:08 by evogel           ###   ########.fr       */
+/*   Updated: 2019/04/10 19:26:25 by evogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,6 +157,7 @@ int		do_move(int x, int y, void *param);
 
 void	zoom_in(int x, int y, void *param);
 void	zoom_out(int x, int y, void *param);
+void	center_click(int x, int y, void *param);
 void	reset(int key, void *param);
 void	pan_image(int key, void *param);
 void	change_iter(int key, void *param);
@@ -164,6 +165,7 @@ void	change_escape(int key, void *param);
 void	presets(int key, void *param);
 void	julia_mode(int x, int y, void *param);
 void	julia_c_modif(int key, void *param);
+void	change_type(int key, void *param);
 
 /*
 ** Creation functions

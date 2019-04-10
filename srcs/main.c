@@ -6,7 +6,7 @@
 /*   By: evogel <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/01 14:56:41 by evogel            #+#    #+#             */
-/*   Updated: 2019/04/09 20:23:12 by evogel           ###   ########.fr       */
+/*   Updated: 2019/04/10 15:35:52 by evogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static int	get_type(char *av)
 static int	ft_usage(void)
 {
 	ft_putstr("usage: ./fractol [type]\n");
-	ft_putstr("available types: mandelbrot, julia, thorn, julia_sin, zubieta, mandel4, julia6\n");
+	ft_putstr("available types: mandelbrot, julia, thorn, julia_sin, zubieta, mandel4, julia6, mandelverse\n");
 	return (0);
 }
 
@@ -61,6 +61,7 @@ int		main(int ac, char **av)
 		return (ft_usage());
 	fun_tables_init(&f.fun, f.type);
 	f.color.pal = NULL;
+	f.color.range = 60;
 	color1(0, &f);
 	maths_init(&f.math, f.type);
 	window_init(&f.mlx);

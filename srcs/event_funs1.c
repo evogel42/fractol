@@ -6,7 +6,7 @@
 /*   By: evogel <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 16:46:50 by evogel            #+#    #+#             */
-/*   Updated: 2019/04/09 19:15:02 by evogel           ###   ########.fr       */
+/*   Updated: 2019/04/10 19:47:41 by evogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,9 @@ void	change_iter(int key, void *param)
 
 	f = param;
 	if (key == PT_KEY)
-		f->math.iter += f->color.range;
+		f->math.iter += 5;
 	else if (key == CM_KEY)
-		f->math.iter -= f->color.range;
+		f->math.iter -= 5;
 }
 
 void	change_escape(int key, void *param)
