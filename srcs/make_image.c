@@ -6,7 +6,7 @@
 /*   By: evogel <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/08 13:33:24 by evogel            #+#    #+#             */
-/*   Updated: 2019/04/10 19:43:37 by evogel           ###   ########.fr       */
+/*   Updated: 2019/04/15 15:21:14 by evogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,25 +33,24 @@
 		
 static int	get_color(float res, int iter, int range)
 {
-	static t_color	pal[7] = { {0}, {0x000064}, {0xFF0064}, {0xFFFF64}, {0xffffff}, {0x00ffff}, {0x0000ff} };
-	int				size;
+	static t_color	pal[8] = { {0xB32239}, {0}, {0x000064}, {0xFF0064}, {0xFFFF64}, {0xffffff}, {0xB322FF}, {0x0000ff} };
 	int				index1;
 	int				index2;
 	double			scale;
 	t_color			color;
 
+	range = 60;
 	if ((int)res == iter)
 		return (0);
-	size = 7;
-	scale = fmod(res, range) * size / range;
-	index1 = (int)(((int)res % range) * size / range);
-	if ((index2 = index1 + 1) == range)
+	scale = fmod(res, range) * 8 / range;
+	index1 = (int)scale;
+	if ((index2 = index1 + 1) == 8)
 		index2 = 0;
-	scale -= (int)scale;
+	scale -= index1;
 	color.i = pal[index1].i;
-	color.c[0] += (size = (pal[index2].c[0] - pal[index1].c[0]) * scale) < 255 ? size : 255;
-	color.c[1] += (size = (pal[index2].c[1] - pal[index1].c[1]) * scale) < 255 ? size : 255;
-	color.c[2] += (size = (pal[index2].c[2] - pal[index1].c[2]) * scale) < 255 ? size : 255;
+	color.c[0] += (pal[index2].c[0] - pal[index1].c[0]) * scale;
+	color.c[1] += (pal[index2].c[1] - pal[index1].c[1]) * scale;
+	color.c[2] += (pal[index2].c[2] - pal[index1].c[2]) * scale;
 	return (color.i);
 }
 

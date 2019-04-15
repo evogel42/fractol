@@ -6,7 +6,7 @@
 /*   By: evogel <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/10 14:36:35 by evogel            #+#    #+#             */
-/*   Updated: 2019/04/10 19:46:40 by evogel           ###   ########.fr       */
+/*   Updated: 2019/04/15 15:13:11 by evogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ void	center_click(int x, int y, void *param)
 	double		dx;
 	double		dy;
 
+	if (x < 0 || y < 0)
+		return ;
 	f = param;
 	dx = f->math.plot[1] - f->math.plot[0];
 	dy = f->math.plot[3] - f->math.plot[2];
