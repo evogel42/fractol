@@ -6,7 +6,7 @@
 /*   By: evogel <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:13:13 by evogel            #+#    #+#             */
-/*   Updated: 2019/04/09 18:46:29 by evogel           ###   ########.fr       */
+/*   Updated: 2019/04/17 15:47:06 by evogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	print_info(t_fractal *f)
 	ft_printf("c.x = %f | c.y = %f\n", f->math.c[0], f->math.c[1]);
 	ft_printf("max-iter = %d\n", f->math.iter);
 	ft_printf("escape = %d\n", f->math.escape);
+	ft_printf("range = %d\n", f->color.range);
 }
 
 int		do_close1(int keycode, void *param)

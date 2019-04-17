@@ -6,7 +6,7 @@
 /*   By: evogel <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/10 14:42:38 by evogel            #+#    #+#             */
-/*   Updated: 2019/04/10 19:30:09 by evogel           ###   ########.fr       */
+/*   Updated: 2019/04/17 16:56:55 by evogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,13 @@ void		fun_tables_init(t_functions *fun, int type)
 	}
 	type_init(fun);
 	//change color
-	fun->key[NK1_KEY] = &color1;
+	fun->key[NK0_KEY] = &palette0;
+	fun->key[NK1_KEY] = &palette1;
+//	fun->key[NK2_KEY] = &palette2;
+//	fun->key[NK3_KEY] = &palette3;
+//	fun->key[NK4_KEY] = &palette4;
+	fun->key[NKPL_KEY] = &shift_range;
+	fun->key[NKMN_KEY] = &shift_range;
+	fun->key[NKWC_KEY] = &color_start;
 	fract_init(fun);
 }

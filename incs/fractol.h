@@ -6,7 +6,7 @@
 /*   By: brichard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 11:13:35 by brichard          #+#    #+#             */
-/*   Updated: 2019/04/15 15:03:50 by evogel           ###   ########.fr       */
+/*   Updated: 2019/04/17 16:57:27 by evogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,10 @@ typedef union	u_color
 
 typedef	struct	s_palette
 {
-	int		range;
-	t_color	*pal;
+	t_color			*pal;
+	unsigned short	size;
+	unsigned short	start;
+	int				range;
 }				t_palette;
 
 typedef	struct	s_mlx
@@ -71,11 +73,11 @@ typedef	struct	s_mlx
 
 typedef struct	s_math
 {
-	double			plot[4];
-	int				iter;
-	unsigned int	escape;
-	short			mode;
-	double			c[2];
+	double	plot[4];
+	int		iter;
+	int		escape;
+	short	mode;
+	double	c[2];
 }				t_math;
 
 typedef	struct	s_functions
@@ -99,8 +101,9 @@ typedef	struct	s_fractal
 */
 
 void	window_init(t_mlx *mlx);
-void	maths_init(t_math *math, int type);
+void	maths_init(t_fractal *f);
 void	fun_tables_init(t_functions *fun, int type);
+void	color_init(t_fractal *f);
 
 /*
 ** Fractal functions
@@ -139,7 +142,10 @@ void	mandelverse_init(t_math *math);
 ** Color functions
 */
 
-void	color1(int i, void *param);
+void	color_start(int key, void *param);
+void	shift_range(int key, void *param);
+void	palette0(int i, void *param);
+void	palette1(int i, void *param);
 
 /*
 ** mlx hook functions

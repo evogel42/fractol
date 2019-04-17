@@ -6,30 +6,39 @@
 /*   By: evogel <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/01 14:57:37 by evogel            #+#    #+#             */
-/*   Updated: 2019/04/10 14:43:14 by evogel           ###   ########.fr       */
+/*   Updated: 2019/04/17 16:49:04 by evogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-void		maths_init(t_math *math, int type)
+void		color_init(t_fractal *f)
 {
-	if (type == 0)
-		mandelbrot_init(math);
-	else if (type == 1)
-		julia_init(math);
-	else if (type == 2)
-		thorn_init(math);
-	else if (type == 3)
-		julsin_init(math);
-	else if (type == 4)
-		zubieta_init(math);
-	else if (type == 5)
-		mandel4_init(math);
-	else if (type == 6)
-		julia6_init(math);
-	else if (type == 7)
-		mandelverse_init(math);
+	f->color.pal = NULL;
+	palette0(0, (void*)f);
+	f->color.range = MAX_ITER;
+	f->color.start = 0;
+}
+
+void		maths_init(t_fractal *f)
+{
+	if (f->type == 0)
+		mandelbrot_init(&f->math);
+	else if (f->type == 1)
+		julia_init(&f->math);
+	else if (f->type == 2)
+		thorn_init(&f->math);
+	else if (f->type == 3)
+		julsin_init(&f->math);
+	else if (f->type == 4)
+		zubieta_init(&f->math);
+	else if (f->type == 5)
+		mandel4_init(&f->math);
+	else if (f->type == 6)
+		julia6_init(&f->math);
+	else if (f->type == 7)
+		mandelverse_init(&f->math);
+	f->color.range = MAX_ITER;
 }
 
 void		window_init(t_mlx *mlx)

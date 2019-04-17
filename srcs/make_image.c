@@ -6,51 +6,30 @@
 /*   By: evogel <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/08 13:33:24 by evogel            #+#    #+#             */
-/*   Updated: 2019/04/15 15:21:14 by evogel           ###   ########.fr       */
+/*   Updated: 2019/04/17 18:39:30 by evogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-/*static int	get_color(float res, t_palette *c, int iter)
+static int	get_color(float res, int iter, t_palette *c)
 {
-	t_color	color;
-	int		index1;
-	int		index2;
-
-	if ((int)res == iter)
-		return (0);
-	index1 = (int)res % c->range;
-	color.i = c->pal[index1].i;
-	res -= (int)res;
-	if ((index2 = index1 + 1) == c->range)
-		index2 = 0;
-	color.c[0] += (c->pal[index2].c[0] - c->pal[index1].c[0]) * res;
-	color.c[1] += (c->pal[index2].c[1] - c->pal[index1].c[1]) * res;
-	color.c[2] += (c->pal[index2].c[2] - c->pal[index1].c[2]) * res;
-	return (color.i);
-}*/
-		
-static int	get_color(float res, int iter, int range)
-{
-	static t_color	pal[8] = { {0xB32239}, {0}, {0x000064}, {0xFF0064}, {0xFFFF64}, {0xffffff}, {0xB322FF}, {0x0000ff} };
 	int				index1;
 	int				index2;
 	double			scale;
 	t_color			color;
 
-	range = 60;
 	if ((int)res == iter)
 		return (0);
-	scale = fmod(res, range) * 8 / range;
-	index1 = (int)scale;
-	if ((index2 = index1 + 1) == 8)
+	scale = fmod(res, c->range) * c->size / c->range;
+	index1 = ((int)scale + c->start) % c->size;
+	if ((index2 = index1 + 1) == c->size)
 		index2 = 0;
-	scale -= index1;
-	color.i = pal[index1].i;
-	color.c[0] += (pal[index2].c[0] - pal[index1].c[0]) * scale;
-	color.c[1] += (pal[index2].c[1] - pal[index1].c[1]) * scale;
-	color.c[2] += (pal[index2].c[2] - pal[index1].c[2]) * scale;
+	scale -= (int)scale;
+	color.i = c->pal[index1].i;
+	color.c[0] += (c->pal[index2].c[0] - c->pal[index1].c[0]) * scale;
+	color.c[1] += (c->pal[index2].c[1] - c->pal[index1].c[1]) * scale;
+	color.c[2] += (c->pal[index2].c[2] - c->pal[index1].c[2]) * scale;
 	return (color.i);
 }
 
@@ -71,7 +50,7 @@ static void	maths(t_fractal *f, int lims[2], double scale_x, double scale_y)
 		{
 			cx = x * scale_x + f->math.plot[0];
 			res = f->fun.fractal[f->type](cx, cy, &f->math);
-			f->mlx.data[x + y * WIN_X] = get_color(res, f->math.iter, f->color.range);
+			f->mlx.data[x + y * WIN_X] = get_color(res, f->math.iter, &f->color);
 			++x;
 		}
 		++y;

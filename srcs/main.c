@@ -6,7 +6,7 @@
 /*   By: evogel <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/01 14:56:41 by evogel            #+#    #+#             */
-/*   Updated: 2019/04/10 15:35:52 by evogel           ###   ########.fr       */
+/*   Updated: 2019/04/17 15:43:39 by evogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,8 @@ int		main(int ac, char **av)
 	fun_tables_init(&f.fun, f.type);
 	f.color.pal = NULL;
 	f.color.range = 60;
-	color1(0, &f);
-	maths_init(&f.math, f.type);
+	color_init(&f);
+	maths_init(&f);
 	window_init(&f.mlx);
 	make_image(&f);
 	events_manager(&f);
@@ -71,9 +71,6 @@ int		main(int ac, char **av)
 }
 
 /* KEY ACTIONS:
- * - arrows move picture
- * - mouse wheel zoom on mouse position
  * - add fractal types
  * - add colors
- * - varying escape value
 */

@@ -6,7 +6,7 @@
 /*   By: evogel <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 16:46:50 by evogel            #+#    #+#             */
-/*   Updated: 2019/04/10 19:47:46 by evogel           ###   ########.fr       */
+/*   Updated: 2019/04/17 15:45:08 by evogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	reset(int key, void *param)
 
 	f = param;
 	(void)key;
-	maths_init(&f->math, f->type);
+	maths_init(f);
 }
 
 void	zoom_in(int x, int y, void *param)

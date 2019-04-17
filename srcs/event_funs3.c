@@ -6,7 +6,7 @@
 /*   By: evogel <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/10 14:36:35 by evogel            #+#    #+#             */
-/*   Updated: 2019/04/15 15:13:11 by evogel           ###   ########.fr       */
+/*   Updated: 2019/04/17 17:11:15 by evogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	change_type(int key, void *param)
 	else if (key == K8_KEY)
 		f->type = 7;
 	fun_tables_init(&f->fun, f->type);
-	maths_init(&f->math, f->type);
+	maths_init(f);
 }
 
 void	center_click(int x, int y, void *param)
@@ -56,4 +56,26 @@ void	center_click(int x, int y, void *param)
 	f->math.plot[1] = x_scale + dx * 0.5;
 	f->math.plot[2] = y_scale - dy * 0.5;
 	f->math.plot[3] = y_scale + dy * 0.5;
+}
+
+void	shift_range(int key, void *param)
+{
+	t_fractal *f;
+
+	f = param;
+	if (key == NKPL_KEY)
+		f->color.range += 1;
+	else if (key == NKMN_KEY && f->color.range > 1)
+		f->color.range -= 1;
+}
+
+void	color_start(int key, void *param)
+{
+	t_fractal *f;
+
+	f = param;
+	(void)key;
+	f->color.start += 1;
+	if (f->color.start == f->color.size)
+		f->color.start = 0;
 }
