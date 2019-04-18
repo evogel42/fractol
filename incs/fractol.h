@@ -6,7 +6,7 @@
 /*   By: brichard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 11:13:35 by brichard          #+#    #+#             */
-/*   Updated: 2019/04/17 16:57:27 by evogel           ###   ########.fr       */
+/*   Updated: 2019/04/18 18:08:37 by evogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,6 +146,8 @@ void	color_start(int key, void *param);
 void	shift_range(int key, void *param);
 void	palette0(int i, void *param);
 void	palette1(int i, void *param);
+void	palette2(int i, void *param);
+void	palette3(int i, void *param);
 
 /*
 ** mlx hook functions

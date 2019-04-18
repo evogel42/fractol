@@ -6,7 +6,7 @@
 /*   By: evogel <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/01 14:56:41 by evogel            #+#    #+#             */
-/*   Updated: 2019/04/17 15:43:39 by evogel           ###   ########.fr       */
+/*   Updated: 2019/04/18 14:31:07 by evogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,12 +60,9 @@ int		main(int ac, char **av)
 	if ((f.type = get_type(av[1])) == -1)
 		return (ft_usage());
 	fun_tables_init(&f.fun, f.type);
-	f.color.pal = NULL;
-	f.color.range = 60;
-	color_init(&f);
 	maths_init(&f);
 	window_init(&f.mlx);
-	make_image(&f);
+	color_init(&f);
 	events_manager(&f);
 	return (0);
 }

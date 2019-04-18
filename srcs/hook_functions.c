@@ -6,7 +6,7 @@
 /*   By: evogel <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:13:13 by evogel            #+#    #+#             */
-/*   Updated: 2019/04/17 15:47:06 by evogel           ###   ########.fr       */
+/*   Updated: 2019/04/18 14:31:44 by evogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,7 @@ int		do_key(int keycode, void *param)
 
 	f = (t_fractal *)param;
 	if (f->fun.key[keycode])
-	{
 		f->fun.key[keycode](keycode, (void *)f);
-		make_image(f);
-	}
 	if (keycode == NKNTR_KEY)
 		print_info(f);
 	return (0);
@@ -65,10 +62,7 @@ int		do_mouse(int button, int x, int y, void *param)
 
 	f = (t_fractal *)param;
 	if (f->fun.mouse[button])
-	{
 		f->fun.mouse[button](x, y, (void *)f);
-		make_image(f);
-	}
 	return (0);
 }
 

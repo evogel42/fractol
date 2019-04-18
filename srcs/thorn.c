@@ -6,7 +6,7 @@
 /*   By: evogel <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/08 15:54:56 by evogel            #+#    #+#             */
-/*   Updated: 2019/04/08 22:53:54 by evogel           ###   ########.fr       */
+/*   Updated: 2019/04/18 14:53:34 by evogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	thorn_presets(t_math *math)
 {
-	static double	val[5][2] = { {1, 1}, {2, 2},
+	static double	val[5][2] = { {-3.114542, -3.295629}, {2, 2},
 		{3, 3}, {4, 4}, {5, 5} };
 	static int		i = 0;
 
@@ -52,11 +52,6 @@ float	thorn(double x_start, double y_start, t_math *math)
 		zy = zy / cos(zx) + math->c[1];
 		zx = tmp;
 		++n;
-	}
-	if (n < math->iter)
-	{
-		tmp = log((log(zx * zx + zy * zy ) * 0.5) / log(2)) / log(2);
-		n = n + 1 - tmp;
 	}
 	return (n > 0 ? n : 0);
 }

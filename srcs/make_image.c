@@ -6,21 +6,19 @@
 /*   By: evogel <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/08 13:33:24 by evogel            #+#    #+#             */
-/*   Updated: 2019/04/17 18:39:30 by evogel           ###   ########.fr       */
+/*   Updated: 2019/04/18 12:12:47 by evogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-static int	get_color(float res, int iter, t_palette *c)
+static int	get_color(float res, t_palette *c)
 {
 	int				index1;
 	int				index2;
 	double			scale;
 	t_color			color;
 
-	if ((int)res == iter)
-		return (0);
 	scale = fmod(res, c->range) * c->size / c->range;
 	index1 = ((int)scale + c->start) % c->size;
 	if ((index2 = index1 + 1) == c->size)
@@ -33,24 +31,28 @@ static int	get_color(float res, int iter, t_palette *c)
 	return (color.i);
 }
 
-static void	maths(t_fractal *f, int lims[2], double scale_x, double scale_y)
+static void	maths(t_fractal *f, int x_min, int x_max)
 {
 	int		x;
 	int		y;
-	double	cx;
-	double	cy;
+	double	scale_x;
+	double	scale_y;
 	float	res;
 
+	scale_x = (f->math.plot[1] - f->math.plot[0]) / WIN_X;
+	scale_y = (f->math.plot[3] - f->math.plot[2]) / WIN_Y;
 	y = 0;
 	while (y < WIN_Y)
 	{
-		x = lims[0];
-		cy = y * scale_y + f->math.plot[2];
-		while (x < lims[1])
+		x = x_min;
+		while (x < x_max)
 		{
-			cx = x * scale_x + f->math.plot[0];
-			res = f->fun.fractal[f->type](cx, cy, &f->math);
-			f->mlx.data[x + y * WIN_X] = get_color(res, f->math.iter, &f->color);
+			res = f->fun.fractal[f->type](x * scale_x + f->math.plot[0],
+					y * scale_y + f->math.plot[2], &f->math);
+			if ((int)res == f->math.iter)
+				f->mlx.data[x + y * WIN_X] = 0;
+			else
+				f->mlx.data[x + y * WIN_X] = get_color(res, &f->color);
 			++x;
 		}
 		++y;
@@ -60,16 +62,16 @@ static void	maths(t_fractal *f, int lims[2], double scale_x, double scale_y)
 static void	*section(void *param)
 {
 	static int	i = 0;
-	int			lims[2];
+	int			x_min;
+	int			x_max;
 	t_fractal	*f;
 	
 	f = (t_fractal *)param;
 	if (i >= THREADS)
 		i = 0;
-	lims[0] = (WIN_X / THREADS) * i;
-	lims[1] = (WIN_X / THREADS) * ++i;
-	maths(f, lims, (f->math.plot[1] - f->math.plot[0]) / WIN_X, 
-			(f->math.plot[3] - f->math.plot[2]) / WIN_Y);
+	x_min = (WIN_X / THREADS) * i;
+	x_max = (WIN_X / THREADS) * ++i;
+	maths(f, x_min, x_max);
 	return (NULL);
 }
 

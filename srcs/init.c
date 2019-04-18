@@ -6,7 +6,7 @@
 /*   By: evogel <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/01 14:57:37 by evogel            #+#    #+#             */
-/*   Updated: 2019/04/17 16:49:04 by evogel           ###   ########.fr       */
+/*   Updated: 2019/04/18 18:16:28 by evogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 void		color_init(t_fractal *f)
 {
 	f->color.pal = NULL;
-	palette0(0, (void*)f);
-	f->color.range = MAX_ITER;
+	f->color.range = MAX_ITER * 0.5;
 	f->color.start = 0;
+	palette0(0, (void*)f);
 }
 
 void		maths_init(t_fractal *f)
@@ -38,7 +38,8 @@ void		maths_init(t_fractal *f)
 		julia6_init(&f->math);
 	else if (f->type == 7)
 		mandelverse_init(&f->math);
-	f->color.range = MAX_ITER;
+	f->color.range = MAX_ITER * 0.5;
+	f->color.start = 0;
 }
 
 void		window_init(t_mlx *mlx)

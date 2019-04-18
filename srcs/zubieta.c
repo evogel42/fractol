@@ -6,7 +6,7 @@
 /*   By: evogel <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/08 17:49:10 by evogel            #+#    #+#             */
-/*   Updated: 2019/04/08 23:15:39 by evogel           ###   ########.fr       */
+/*   Updated: 2019/04/18 15:15:50 by evogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	zubieta_presets(t_math *math)
 {
-	static double	val[5][2] = { {0.285, 0.01}, {-0.835, -0.2321},
-		{-0.7269, 0.1889}, {0, -0.8}, {-0.624, 0.435} };
+	static double	val[5][2] = { {0.1536, 0.0}, {0.16896, 0.0},
+		{0.16512, 0.012}, {0.152589, -0.002642}, {0.152589, -0.000242} };
 	static int		i = 0;
 
 	math->c[0] = val[i][0];
@@ -29,7 +29,7 @@ void	zubieta_init(t_math *math)
 	math->plot[2] = -1.2;
 	math->plot[1] = 0.5 * RATIO * (math->plot[3] - math->plot[2]);
 	math->plot[0] = math->plot[1] * -1;
-	math->iter = 400;
+	math->iter = MAX_ITER;
 	math->escape = 16;
 	math->mode = 0;
 	math->c[0] = 0.14976;
