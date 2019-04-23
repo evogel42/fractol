@@ -6,7 +6,7 @@
 /*   By: brichard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 11:13:35 by brichard          #+#    #+#             */
-/*   Updated: 2019/04/18 18:08:37 by evogel           ###   ########.fr       */
+/*   Updated: 2019/04/23 17:56:13 by evogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,13 @@
 # include <pthread.h>
 
 # define RATIO 1.6
-# define WIN_Y 950
+# define WIN_Y 1:q
+:q
+
 # define WIN_X (int)(WIN_Y * RATIO)
-# define THREADS 8
+# define THREADS 1
 # define MAX_ITER 60
-# define F_NUM 8
+# define FRACT_NUM 8
 
 # define PUT1 ft_putendl("HERE1");
 # define PUT2 ft_putendl("HERE2");
@@ -84,7 +86,7 @@ typedef	struct	s_functions
 {
 	void	(*key[KEY_MAX])(int, void *);
 	void	(*mouse[MOUSE_MAX])(int, int, void *);
-	float	(*fractal[F_NUM])(double, double, t_math *);
+	float	(*fractal[FRACT_NUM])(double, double, t_math *);
 }				t_functions;
 
 typedef	struct	s_fractal
@@ -181,5 +183,8 @@ void	change_type(int key, void *param);
 
 void	make_image(t_fractal *f);
 void	write_ppm(int key, void *param);
+
+void	buddhabrot(t_fractal *f);
+int		get_color(float res, t_palette *c);
 
 #endif

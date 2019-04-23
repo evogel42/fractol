@@ -6,7 +6,7 @@
 /*   By: evogel <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/07 16:15:27 by evogel            #+#    #+#             */
-/*   Updated: 2019/04/09 20:29:07 by evogel           ###   ########.fr       */
+/*   Updated: 2019/04/21 16:02:52 by evogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,16 @@ float	mandelverse(double cx, double cy, t_math *math)
 	double	tmp;
 	float	n;
 
-	zx = cx / (cx * cx + cy * cy);
-	zy = -1 * cy / (cx * cx + cy * cy);
+	tmp = cx / (cx * cx + cy * cy);
+	cy = -1 * cy / (cx * cx + cy * cy);
+	cx = tmp;
+	zx = cx;
+	zy = cy;
 	n = 1;
 	while (zx * zx + zy * zy < math->escape && n < math->iter)
 	{
-		tmp = zx * zx - zy * zy + (cx / (cx * cx + cy * cy));
-		zy = 2 * zx * zy - (cy / (cx * cx + cy * cy));
+		tmp = zx * zx - zy * zy + cx;
+		zy = 2 * zx * zy + cy;
 		zx = tmp;
 		++n;
 	}

@@ -6,13 +6,13 @@
 /*   By: evogel <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/08 13:33:24 by evogel            #+#    #+#             */
-/*   Updated: 2019/04/18 12:12:47 by evogel           ###   ########.fr       */
+/*   Updated: 2019/04/23 16:39:38 by evogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-static int	get_color(float res, t_palette *c)
+int	get_color(float res, t_palette *c)
 {
 	int				index1;
 	int				index2;
@@ -39,6 +39,10 @@ static void	maths(t_fractal *f, int x_min, int x_max)
 	double	scale_y;
 	float	res;
 
+	if (f->type == 0)
+		buddhabrot(f);
+	else
+	{
 	scale_x = (f->math.plot[1] - f->math.plot[0]) / WIN_X;
 	scale_y = (f->math.plot[3] - f->math.plot[2]) / WIN_Y;
 	y = 0;
@@ -56,6 +60,7 @@ static void	maths(t_fractal *f, int x_min, int x_max)
 			++x;
 		}
 		++y;
+	}
 	}
 }
 
