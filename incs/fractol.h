@@ -6,7 +6,7 @@
 /*   By: brichard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 11:13:35 by brichard          #+#    #+#             */
-/*   Updated: 2019/04/24 13:36:27 by evogel           ###   ########.fr       */
+/*   Updated: 2019/04/24 15:10:37 by evogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@
 */
 
 # include <pthread.h>
+# include <OpenCL/cl.h>
 
 # define RATIO 16 / 9
 # define WIN_Y 900

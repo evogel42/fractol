@@ -6,7 +6,7 @@
 #    By: evogel <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/07 16:47:44 by evogel            #+#    #+#              #
-#    Updated: 2019/04/21 17:33:07 by evogel           ###   ########.fr        #
+#    Updated: 2019/04/24 15:19:58 by evogel           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,13 +16,13 @@ NAME = fractol
 # FILES #
 #########
 
-SRCS = main.c \
+NORM_SRCS = main.c \
 	   init.c \
 	   fun_tabs_init.c \
 	   hook_functions.c \
 	   event_funs1.c \
-	   event_funs2.c\
-	   event_funs3.c\
+	   event_funs2.c \
+	   event_funs3.c \
 	   colors1.c \
 	   make_image.c \
 	   write_ppm.c \
@@ -35,6 +35,26 @@ SRCS = main.c \
 	   julia6.c \
 	   mandelverse.c \
 	   buddhabrot.c
+
+CL_SRCS = main.c \
+		  init.c \
+		  fun_tabs_init.c \
+		  hook_functions.c \
+		  event_funs1.c \
+		  event_funs2.c \
+		  event_funs3.c \
+		  colors1.c \
+		  make_image.c \
+		  write_ppm.c \
+		  mandelbrot.c \
+		  julia.c \
+		  thorn.c \
+		  julia_sin.c \
+		  zubieta.c \
+		  mandel4.c \
+		  julia6.c \
+		  mandelverse.c \
+		  buddhabrot.c
 
 OBJS = $(SRCS:.c=.o)
 
@@ -70,7 +90,7 @@ MLXFLAGS = -framework OpenGL -framework AppKit
 
 I_FLAGS = $(foreach LIB, $(D_LIBS),-I$(LIB)) -I$(INC)
 
-L_FLAGS = $(foreach LIB, $(D_LIBS),-L$(LIB) -l$(LIB:lib%=%)) -lmlx -lm
+L_FLAGS = $(foreach LIB, $(D_LIBS),-L$(LIB) -l$(LIB:lib%=%)) -lmlx -lm -lOpenCL
 
 ################
 # COMPILE TEST #
