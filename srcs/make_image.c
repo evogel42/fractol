@@ -6,7 +6,7 @@
 /*   By: evogel <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/08 13:33:24 by evogel            #+#    #+#             */
-/*   Updated: 2019/04/23 16:39:38 by evogel           ###   ########.fr       */
+/*   Updated: 2019/04/24 13:33:38 by evogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,10 @@ static void	maths(t_fractal *f, int x_min, int x_max)
 	double	scale_y;
 	float	res;
 
-	if (f->type == 0)
-		buddhabrot(f);
-	else
-	{
+//	if (f->type == 0)
+//		buddhabrot(f);
+//	else
+//	{
 	scale_x = (f->math.plot[1] - f->math.plot[0]) / WIN_X;
 	scale_y = (f->math.plot[3] - f->math.plot[2]) / WIN_Y;
 	y = 0;
@@ -61,7 +61,7 @@ static void	maths(t_fractal *f, int x_min, int x_max)
 		}
 		++y;
 	}
-	}
+//	}
 }
 
 static void	*section(void *param)

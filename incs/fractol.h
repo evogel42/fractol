@@ -6,7 +6,7 @@
 /*   By: brichard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 11:13:35 by brichard          #+#    #+#             */
-/*   Updated: 2019/04/23 17:56:13 by evogel           ###   ########.fr       */
+/*   Updated: 2019/04/24 13:36:27 by evogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,11 @@
 
 # include <pthread.h>
 
-# define RATIO 1.6
-# define WIN_Y 1:q
-:q
+# define RATIO 16 / 9
+# define WIN_Y 900
 
 # define WIN_X (int)(WIN_Y * RATIO)
-# define THREADS 1
+# define THREADS 8
 # define MAX_ITER 60
 # define FRACT_NUM 8
 
