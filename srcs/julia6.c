@@ -6,7 +6,7 @@
 /*   By: evogel <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/08 12:21:07 by evogel            #+#    #+#             */
-/*   Updated: 2019/04/18 20:59:01 by evogel           ###   ########.fr       */
+/*   Updated: 2019/04/26 14:18:14 by evogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	julia6_presets(t_math *math)
 {
-	static double	val[5][2] = { {-1.063579, 0.032842}, {0.650862, 0.491967},
-		{-0.184421, -0.818526}, {0, 0}, {0, 0} };
+	static double	val[5][2] = { {-1.063579, 0.032842}, {-0.923468, 0.136},
+		{-0.184421, -0.818526}, {-0.016, -0.794667}, {-0.4743, -0.3446} };
 	static int		i = 0;
 
 	math->c[0] = val[i][0];
@@ -29,7 +29,7 @@ void	julia6_init(t_math *math)
 	math->plot[2] = -1.2;
 	math->plot[1] = 0.5 * RATIO * (math->plot[3] - math->plot[2]);
 	math->plot[0] = math->plot[1] * -1;
-	math->iter = 120;
+	math->iter = MAX_ITER;
 	math->escape = 16;
 	math->mode = 0;
 	math->c[0] = -0.326167;

@@ -6,7 +6,7 @@
 /*   By: brichard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 11:13:35 by brichard          #+#    #+#             */
-/*   Updated: 2019/04/24 13:36:27 by evogel           ###   ########.fr       */
+/*   Updated: 2019/05/08 14:37:55 by evogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,11 @@
 # include <pthread.h>
 
 # define RATIO 16 / 9
-# define WIN_Y 900
+# define WIN_Y 810
 
 # define WIN_X (int)(WIN_Y * RATIO)
 # define THREADS 8
 # define MAX_ITER 60
-# define FRACT_NUM 8
 
 # define PUT1 ft_putendl("HERE1");
 # define PUT2 ft_putendl("HERE2");
@@ -85,12 +84,14 @@ typedef	struct	s_functions
 {
 	void	(*key[KEY_MAX])(int, void *);
 	void	(*mouse[MOUSE_MAX])(int, int, void *);
-	float	(*fractal[FRACT_NUM])(double, double, t_math *);
+	float	(*fractal[K0_KEY])(double, double, t_math *);
+	void	(*fset[2][K0_KEY])(t_math *);
 }				t_functions;
 
 typedef	struct	s_fractal
 {
 	short		type;
+	short		info;
 	t_mlx		mlx;
 	t_math		math;
 	t_palette	color;
@@ -113,13 +114,19 @@ void	color_init(t_fractal *f);
 float	mandelbrot(double cx, double cy, t_math *math);
 void	mandelbrot_init(t_math *math);
 
+float	mandel4(double cx, double cy, t_math *math);
+void	mandel4_init(t_math *math);
+
+float	mandelverse(double cx, double cy, t_math *math);
+void	mandelverse_init(t_math *math);
+
 float	julia(double x_start, double y_start, t_math *math);
 void	julia_init(t_math *math);
 void	julia_presets(t_math *math);
 
-float	thorn(double x_start, double y_start, t_math *math);
-void	thorn_init(t_math *math);
-void	thorn_presets(t_math *math);
+float	julia6(double x_start, double y_start, t_math *math);
+void	julia6_init(t_math *math);
+void	julia6_presets(t_math *math);
 
 float	julia_sin(double x_start, double y_start, t_math *math);
 void	julsin_init(t_math *math);
@@ -129,20 +136,17 @@ float	zubieta(double x_start, double y_start, t_math *math);
 void	zubieta_init(t_math *math);
 void	zubieta_presets(t_math *math);
 
-float	mandel4(double cx, double cy, t_math *math);
-void	mandel4_init(t_math *math);
+float	thorn(double x_start, double y_start, t_math *math);
+void	thorn_init(t_math *math);
+void	thorn_presets(t_math *math);
 
-float	julia6(double x_start, double y_start, t_math *math);
-void	julia6_init(t_math *math);
-void	julia6_presets(t_math *math);
-
-float	mandelverse(double cx, double cy, t_math *math);
-void	mandelverse_init(t_math *math);
+void	buddhabrot(t_fractal *f);
 
 /*
 ** Color functions
 */
 
+int		get_color(float res, t_palette *c);
 void	color_start(int key, void *param);
 void	shift_range(int key, void *param);
 void	palette0(int i, void *param);
@@ -175,15 +179,15 @@ void	presets(int key, void *param);
 void	julia_mode(int x, int y, void *param);
 void	julia_c_modif(int key, void *param);
 void	change_type(int key, void *param);
+void	disp_info(int key, void *param);
 
 /*
 ** Creation functions
 */
 
 void	make_image(t_fractal *f);
+void	make_info_bg(t_fractal *f);
+void	make_info_text(t_fractal *f);
 void	write_ppm(int key, void *param);
-
-void	buddhabrot(t_fractal *f);
-int		get_color(float res, t_palette *c);
 
 #endif

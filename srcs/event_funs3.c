@@ -6,7 +6,7 @@
 /*   By: evogel <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/10 14:36:35 by evogel            #+#    #+#             */
-/*   Updated: 2019/04/18 18:16:12 by evogel           ###   ########.fr       */
+/*   Updated: 2019/05/08 11:41:31 by evogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,22 +17,7 @@ void	change_type(int key, void *param)
 	t_fractal *f;
 
 	f = (t_fractal *)param;
-	if (key == K1_KEY)
-		f->type = 0;
-	else if (key == K2_KEY)
-		f->type = 1;
-	else if (key == K3_KEY)
-		f->type = 2;
-	else if (key == K4_KEY)
-		f->type = 3;
-	else if (key == K5_KEY)
-		f->type = 4;
-	else if (key == K6_KEY)
-		f->type = 5;
-	else if (key == K7_KEY)
-		f->type = 6;
-	else if (key == K8_KEY)
-		f->type = 7;
+	f->type = key;
 	fun_tables_init(&f->fun, f->type);
 	maths_init(f);
 	make_image(f);
@@ -81,5 +66,15 @@ void	color_start(int key, void *param)
 	f->color.start += 1;
 	if (f->color.start == f->color.size)
 		f->color.start = 0;
+	make_image(f);
+}
+
+void	disp_info(int key, void *param)
+{
+	t_fractal *f;
+
+	(void)key;
+	f = (t_fractal *)param;
+	f->info = (f->info == 1 ? 0 : 1);
 	make_image(f);
 }

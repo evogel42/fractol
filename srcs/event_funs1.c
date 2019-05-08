@@ -6,7 +6,7 @@
 /*   By: evogel <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 16:46:50 by evogel            #+#    #+#             */
-/*   Updated: 2019/04/18 14:03:38 by evogel           ###   ########.fr       */
+/*   Updated: 2019/04/26 13:31:26 by evogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,15 +72,9 @@ void	presets(int key, void *param)
 
 	f = (t_fractal *)param;
 	(void)key;
-	if (f->type == 1)
-		julia_presets(&f->math);
-	else if (f->type == 2)
-		thorn_presets(&f->math);
-	else if (f->type == 3)
-		julsin_presets(&f->math);
-	else if (f->type == 4)
-		zubieta_presets(&f->math);
-	else if (f->type == 6)
-		julia6_presets(&f->math);
-	make_image(f);
+	if (f->fun.fset[1][f->type])
+	{
+		f->fun.fset[1][f->type](&f->math);
+		make_image(f);
+	}
 }

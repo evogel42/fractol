@@ -6,7 +6,7 @@
 #    By: evogel <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/07 16:47:44 by evogel            #+#    #+#              #
-#    Updated: 2019/04/21 17:33:07 by evogel           ###   ########.fr        #
+#    Updated: 2019/05/08 11:42:27 by evogel           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,8 @@ SRCS = main.c \
 	   mandel4.c \
 	   julia6.c \
 	   mandelverse.c \
-	   buddhabrot.c
+	   buddhabrot.c \
+	   info.c
 
 OBJS = $(SRCS:.c=.o)
 

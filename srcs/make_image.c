@@ -6,7 +6,7 @@
 /*   By: evogel <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/08 13:33:24 by evogel            #+#    #+#             */
-/*   Updated: 2019/04/24 13:33:38 by evogel           ###   ########.fr       */
+/*   Updated: 2019/05/08 14:52:09 by evogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,4 +96,6 @@ void	make_image(t_fractal *f)
 		if (pthread_join(tid[i++], NULL) != 0)
 			exit(-1);
 	mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr, mlx->img_ptr, 0, 0);
+	if (f->info)
+		make_info_text(f);
 }

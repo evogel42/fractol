@@ -6,7 +6,7 @@
 /*   By: evogel <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 16:46:50 by evogel            #+#    #+#             */
-/*   Updated: 2019/04/18 18:16:33 by evogel           ###   ########.fr       */
+/*   Updated: 2019/04/26 13:50:10 by evogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,8 @@ void	julia_mode(int x, int y, void *param)
 	(void)x;
 	(void)y;
 	f->math.mode = (f->math.mode == 0 ? 1 : 0);
-//	if (f->math.mode == 1)
-//		f->math.iter = MAX_ITER;
+	if (f->math.mode == 1)
+		f->math.iter = MAX_ITER;
 }
 
 void	julia_c_modif(int key, void *param)

@@ -6,7 +6,7 @@
 /*   By: evogel <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/08 18:53:22 by evogel            #+#    #+#             */
-/*   Updated: 2019/04/21 13:53:35 by evogel           ###   ########.fr       */
+/*   Updated: 2019/04/26 13:49:47 by evogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 void	palette0(int i, void *param)
 {
-	static int	pal[7] = {0, 0x270056, 0xD20358, 0xFFDD66, 0xC6FFC6, 0x3DECFF, 0x111166};
+	static int	pal[7] = {0, 0x270056, 0xD20358, 0xFFDD66, 0xC6FFC6, 0x3DECFF,
+		0x111166};
 	t_fractal	*f;
 
 	f = (t_fractal *)param;
@@ -54,7 +55,8 @@ void	palette1(int i, void *param)
 
 void	palette2(int i, void *param)
 {
-	static int	pal[7] = {0x1F0225, 0x332F91, 0x348AA7, 0x5DD39E, 0xFFEE99, 0xFF6971, 0x7B0337};
+	static int	pal[7] = {0x1F0225, 0x332F91, 0x348AA7, 0x5DD39E, 0xFFEE99,
+		0xFF6971, 0x7B0337};
 	t_fractal	*f;
 
 	f = (t_fractal *)param;
