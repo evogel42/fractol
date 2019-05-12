@@ -6,11 +6,31 @@
 /*   By: evogel <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 15:23:05 by evogel            #+#    #+#             */
-/*   Updated: 2019/05/08 16:17:36 by evogel           ###   ########.fr       */
+/*   Updated: 2019/05/12 10:52:36 by evogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
+
+void	make_info_text2(t_fractal *f)
+{
+	static char	names[8][12] = {"mandelbrot", "mandel4", "mandelverse", "julia",
+	"julia6", "julia_sin", "zubieta", "thorn"};
+	static int	nums[8] = {K1_KEY, K2_KEY, K3_KEY, K4_KEY, K5_KEY, K6_KEY, K7_KEY, K8_KEY};
+	int				i;
+
+	i = 0;
+	while (f->type != nums[i] && i < 8)
+		++i;
+	mlx_string_put(f->mlx.mlx_ptr, f->mlx.win_ptr, WIN_X - 200, 20, 0xFFFFFF, names[i]);
+	mlx_string_put(f->mlx.mlx_ptr, f->mlx.win_ptr, WIN_X - 200, 60, 0xFFFFFF, ft_itoa(f->math.iter));
+	mlx_string_put(f->mlx.mlx_ptr, f->mlx.win_ptr, WIN_X - 200, 100, 0xFFFFFF, ft_itoa(f->math.escape));
+	if (i > 2)
+	{
+		mlx_string_put(f->mlx.mlx_ptr, f->mlx.win_ptr, WIN_X - 200, 140, 0xFFFFFF, ft_flotoa(f->math.c[0], 6));
+		mlx_string_put(f->mlx.mlx_ptr, f->mlx.win_ptr, WIN_X - 200, 180, 0xFFFFFF, ft_flotoa(f->math.c[1], 6));
+	}
+}
 
 void	make_info_bg(t_fractal *f)
 {
@@ -63,4 +83,5 @@ void	make_info_text(t_fractal *f)
 	mlx_string_put(f->mlx.mlx_ptr, f->mlx.win_ptr, x, (y += 30), 0xFFFFFF, "#1-6 : Change color palette");
 	mlx_string_put(f->mlx.mlx_ptr, f->mlx.win_ptr, x, (y += 30), 0xFFFFFF, "- +  : Change color range");
 	mlx_string_put(f->mlx.mlx_ptr, f->mlx.win_ptr, x, (y += 30), 0xFFFFFF, "*    : Change palette order");
+	make_info_text2(f);
 }

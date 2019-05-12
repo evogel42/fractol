@@ -6,7 +6,7 @@
 /*   By: brichard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 11:13:35 by brichard          #+#    #+#             */
-/*   Updated: 2019/05/08 14:37:55 by evogel           ###   ########.fr       */
+/*   Updated: 2019/05/12 11:06:18 by evogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,13 @@
 
 # define RATIO 16 / 9
 # define WIN_Y 810
+
+# define EIGHTK 4320
+# define FIVEK 2880
+# define FOURK 2160
+# define TWOK 1440
+# define FHD 1080
+# define HD 720
 
 # define WIN_X (int)(WIN_Y * RATIO)
 # define THREADS 8
@@ -92,6 +99,8 @@ typedef	struct	s_fractal
 {
 	short		type;
 	short		info;
+//	int			win_x;
+//	int			win_y;
 	t_mlx		mlx;
 	t_math		math;
 	t_palette	color;
