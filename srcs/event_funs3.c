@@ -6,7 +6,7 @@
 /*   By: evogel <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/10 14:36:35 by evogel            #+#    #+#             */
-/*   Updated: 2019/05/08 11:41:31 by evogel           ###   ########.fr       */
+/*   Updated: 2019/05/12 12:53:30 by evogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ void	center_click(int x, int y, void *param)
 	f = (t_fractal *)param;
 	dx = f->math.plot[1] - f->math.plot[0];
 	dy = f->math.plot[3] - f->math.plot[2];
-	x_scale = x * dx / WIN_X + f->math.plot[0];
-	y_scale = y * dy / WIN_Y + f->math.plot[2];
+	x_scale = x * dx / f->win_x + f->math.plot[0];
+	y_scale = y * dy / f->win_y + f->math.plot[2];
 	f->math.plot[0] = x_scale - dx * 0.5;
 	f->math.plot[1] = x_scale + dx * 0.5;
 	f->math.plot[2] = y_scale - dy * 0.5;
@@ -66,15 +66,5 @@ void	color_start(int key, void *param)
 	f->color.start += 1;
 	if (f->color.start == f->color.size)
 		f->color.start = 0;
-	make_image(f);
-}
-
-void	disp_info(int key, void *param)
-{
-	t_fractal *f;
-
-	(void)key;
-	f = (t_fractal *)param;
-	f->info = (f->info == 1 ? 0 : 1);
 	make_image(f);
 }

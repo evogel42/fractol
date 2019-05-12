@@ -6,7 +6,7 @@
 /*   By: evogel <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/07 16:15:27 by evogel            #+#    #+#             */
-/*   Updated: 2019/04/18 12:07:42 by evogel           ###   ########.fr       */
+/*   Updated: 2019/05/12 16:06:35 by evogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,14 +37,15 @@ float	mandel4(double cx, double cy, t_math *math)
 	n = 1;
 	while (zx * zx + zy * zy < math->escape && n < math->iter)
 	{
-		tmp = zx * zx * zx * zx + zy * zy * zy * zy - 6 * zx * zx * zy * zy + cx;
+		tmp = zx * zx * zx * zx + zy * zy * zy * zy - 6 * zx * zx * zy * zy
+			+ cx;
 		zy = 4 * zx * zx * zx * zy - 4 * zx * zy * zy * zy + cy;
 		zx = tmp;
 		++n;
 	}
 	if (n < math->iter)
 	{
-		tmp = log((log(zx * zx + zy * zy ) * 0.25) / log(4)) / log(4);
+		tmp = log((log(zx * zx + zy * zy) * 0.25) / log(4)) / log(4);
 		n = n + 1 - tmp;
 	}
 	return (n > 0 ? n : 0);

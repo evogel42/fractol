@@ -6,60 +6,98 @@
 /*   By: evogel <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 15:23:05 by evogel            #+#    #+#             */
-/*   Updated: 2019/05/12 10:52:36 by evogel           ###   ########.fr       */
+/*   Updated: 2019/05/12 16:05:24 by evogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-void	make_info_text2(t_fractal *f)
-{
-	static char	names[8][12] = {"mandelbrot", "mandel4", "mandelverse", "julia",
-	"julia6", "julia_sin", "zubieta", "thorn"};
-	static int	nums[8] = {K1_KEY, K2_KEY, K3_KEY, K4_KEY, K5_KEY, K6_KEY, K7_KEY, K8_KEY};
-	int				i;
-
-	i = 0;
-	while (f->type != nums[i] && i < 8)
-		++i;
-	mlx_string_put(f->mlx.mlx_ptr, f->mlx.win_ptr, WIN_X - 200, 20, 0xFFFFFF, names[i]);
-	mlx_string_put(f->mlx.mlx_ptr, f->mlx.win_ptr, WIN_X - 200, 60, 0xFFFFFF, ft_itoa(f->math.iter));
-	mlx_string_put(f->mlx.mlx_ptr, f->mlx.win_ptr, WIN_X - 200, 100, 0xFFFFFF, ft_itoa(f->math.escape));
-	if (i > 2)
-	{
-		mlx_string_put(f->mlx.mlx_ptr, f->mlx.win_ptr, WIN_X - 200, 140, 0xFFFFFF, ft_flotoa(f->math.c[0], 6));
-		mlx_string_put(f->mlx.mlx_ptr, f->mlx.win_ptr, WIN_X - 200, 180, 0xFFFFFF, ft_flotoa(f->math.c[1], 6));
-	}
-}
-
-void	make_info_bg(t_fractal *f)
+static void	make_info_bg(t_fractal *f, int width, int height, int fill)
 {
 	int			x;
 	int			y;
+	int			tmp;
+	t_mlx		*mlx;
 
+	mlx = &f->mlx;
 	x = 0;
-	while (x < 350)
+	while (x < width)
 	{
 		y = 0;
-		while (y < WIN_Y)
+		while (y < height)
 		{
 			if (x < 10)
-				f->mlx.data[x + y * WIN_X] = f->color.pal[(int)(y * f->color.size / WIN_Y)].i;
+			{
+				tmp = (int)(y * f->color.size / height);
+				mlx->data[x + y * f->win_x] = f->color.pal[tmp].i;
+			}
 			else
-				f->mlx.data[x + y * WIN_X] = 0x60000000;
+				mlx->data[x + y * f->win_x] = fill;
 			++y;
 		}
 		++x;
 	}
+	mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr, mlx->img_ptr, 0, 0);
 }
 
-void	make_info_text(t_fractal *f)
+void		make_info_text(t_fractal *f)
+{
+	static char	names[8][12] = {"mandelbrot", "mandel4", "mandelverse", "julia",
+		"julia6", "julia_sin", "zubieta", "thorn"};
+	static int	nums[8] = {K1_KEY, K2_KEY, K3_KEY, K4_KEY, K5_KEY, K6_KEY,
+		K7_KEY, K8_KEY};
+	int				i;
+	char			*tmp;
+
+	make_info_bg(f, 270, 300, 0xAA000000);
+	i = 0;
+	while (f->type != nums[i] && i < 8)
+		++i;
+	mlx_string_put(f->mlx.mlx_ptr, f->mlx.win_ptr, 20, 10, 0xFFFFFF, "Fractal:");
+	mlx_string_put(f->mlx.mlx_ptr, f->mlx.win_ptr, 150, 10, 0xFFFFFF, names[i]);
+	i = 10;
+//	mlx_string_put(f->mlx.mlx_ptr, f->mlx.win_ptr, 20, (i += 30), 0xFFFFFF, "Zoom:");
+//	tmp = ft_strjoin(ft_itoa(f->math.zoom), "%");
+//	mlx_string_put(f->mlx.mlx_ptr, f->mlx.win_ptr, 150, i, 0xFFFFFF, tmp);
+//	free(tmp);
+//	mlx_string_put(f->mlx.mlx_ptr, f->mlx.win_ptr, 20, (i += 30), 0xFFFFFF, "Zoom:");
+//	tmp = ft_strjoin(ft_itoa(100.0 / (f->math.plot[1] - f->math.plot[0])), "%");
+//	mlx_string_put(f->mlx.mlx_ptr, f->mlx.win_ptr, 150, i, 0xFFFFFF, tmp);
+//	free(tmp);
+	mlx_string_put(f->mlx.mlx_ptr, f->mlx.win_ptr, 20, (i += 30), 0xFFFFFF, "Max iter:");
+	mlx_string_put(f->mlx.mlx_ptr, f->mlx.win_ptr, 150, i, 0xFFFFFF, (tmp = ft_itoa(f->math.iter)));
+	free(tmp);
+	mlx_string_put(f->mlx.mlx_ptr, f->mlx.win_ptr, 20, (i += 30), 0xFFFFFF, "Escape val:");
+	mlx_string_put(f->mlx.mlx_ptr, f->mlx.win_ptr, 150, i, 0xFFFFFF, (tmp = ft_itoa(f->math.escape)));
+	free(tmp);
+	mlx_string_put(f->mlx.mlx_ptr, f->mlx.win_ptr, 20, (i += 30), 0xFFFFFF, "Color range:");
+	mlx_string_put(f->mlx.mlx_ptr, f->mlx.win_ptr, 150, i, 0xFFFFFF, (tmp = ft_itoa(f->color.range)));
+	free(tmp);
+	mlx_string_put(f->mlx.mlx_ptr, f->mlx.win_ptr, 20, (i += 30), 0xFFFFFF, "Resolution:");
+	tmp = ft_strjoin(ft_itoa(f->win_x), "x");
+	mlx_string_put(f->mlx.mlx_ptr, f->mlx.win_ptr, 150, i, 0xFFFFFF, tmp);
+	free(tmp);
+	mlx_string_put(f->mlx.mlx_ptr, f->mlx.win_ptr, 200, i, 0xFFFFFF, (tmp = ft_itoa(f->win_y)));
+	free(tmp);
+	if (f->type > K3_KEY)
+	{
+		mlx_string_put(f->mlx.mlx_ptr, f->mlx.win_ptr, 20, (i += 50), 0xFFFFFF, "Julia type parameter");
+		mlx_string_put(f->mlx.mlx_ptr, f->mlx.win_ptr, 20, (i += 20), 0xFFFFFF, "------------------------");
+		mlx_string_put(f->mlx.mlx_ptr, f->mlx.win_ptr, 40, (i += 30), 0xFFFFFF, "x =");
+		mlx_string_put(f->mlx.mlx_ptr, f->mlx.win_ptr, 80, i, 0xFFFFFF, (tmp = ft_flotoa(f->math.c[0], 6)));
+		free(tmp);
+		mlx_string_put(f->mlx.mlx_ptr, f->mlx.win_ptr, 40, (i += 30), 0xFFFFFF, "y =");
+		mlx_string_put(f->mlx.mlx_ptr, f->mlx.win_ptr, 80, i, 0xFFFFFF, (tmp = ft_flotoa(f->math.c[1], 6)));
+		free(tmp);
+	}
+}
+
+void		make_controls_text(t_fractal *f)
 {
 	int x;
 	int	y;
 
-	make_info_bg(f);
-	mlx_put_image_to_window(f->mlx.mlx_ptr, f->mlx.win_ptr, f->mlx.img_ptr, 0, 0);
+	make_info_bg(f, 350, f->win_y, 0x60000000);
 	x = 20;
 	y = 10;
 	mlx_string_put(f->mlx.mlx_ptr, f->mlx.win_ptr, x, y, 0xFFFFFF, "Mouse Controls");
@@ -83,5 +121,4 @@ void	make_info_text(t_fractal *f)
 	mlx_string_put(f->mlx.mlx_ptr, f->mlx.win_ptr, x, (y += 30), 0xFFFFFF, "#1-6 : Change color palette");
 	mlx_string_put(f->mlx.mlx_ptr, f->mlx.win_ptr, x, (y += 30), 0xFFFFFF, "- +  : Change color range");
 	mlx_string_put(f->mlx.mlx_ptr, f->mlx.win_ptr, x, (y += 30), 0xFFFFFF, "*    : Change palette order");
-	make_info_text2(f);
 }

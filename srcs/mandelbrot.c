@@ -6,7 +6,7 @@
 /*   By: evogel <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/07 16:15:27 by evogel            #+#    #+#             */
-/*   Updated: 2019/04/24 13:32:59 by evogel           ###   ########.fr       */
+/*   Updated: 2019/05/12 16:18:18 by evogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ float	mandelbrot(double cx, double cy, t_math *math)
 	}
 	if (n < math->iter)
 	{
-		tmp = log((log(zx * zx + zy * zy ) * 0.5) / log(2)) / log(2);
+		tmp = log((log(zx * zx + zy * zy) * 0.5) / log(2)) / log(2);
 		n = n + 1 - tmp;
 	}
 	return (n > 0 ? n : 0);

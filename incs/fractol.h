@@ -6,7 +6,7 @@
 /*   By: brichard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 11:13:35 by brichard          #+#    #+#             */
-/*   Updated: 2019/05/12 11:06:18 by evogel           ###   ########.fr       */
+/*   Updated: 2019/05/12 15:12:17 by evogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,17 +34,15 @@
 
 # define RATIO 16 / 9
 # define WIN_Y 810
-
-# define EIGHTK 4320
-# define FIVEK 2880
-# define FOURK 2160
-# define TWOK 1440
-# define FHD 1080
-# define HD 720
-
 # define WIN_X (int)(WIN_Y * RATIO)
 # define THREADS 8
 # define MAX_ITER 60
+
+# define FHD 1080
+# define TWOK 1440
+# define FOURK 2160
+# define FIVEK 2880
+# define EIGHTK 4320
 
 # define PUT1 ft_putendl("HERE1");
 # define PUT2 ft_putendl("HERE2");
@@ -85,6 +83,7 @@ typedef struct	s_math
 	int		escape;
 	short	mode;
 	double	c[2];
+	int		zoom;
 }				t_math;
 
 typedef	struct	s_functions
@@ -99,8 +98,8 @@ typedef	struct	s_fractal
 {
 	short		type;
 	short		info;
-//	int			win_x;
-//	int			win_y;
+	int			win_x;
+	int			win_y;
 	t_mlx		mlx;
 	t_math		math;
 	t_palette	color;
@@ -111,10 +110,11 @@ typedef	struct	s_fractal
 ** Init functions
 */
 
-void	window_init(t_mlx *mlx);
+void	window_init(t_mlx *mlx, int win_x, int win_y);
 void	maths_init(t_fractal *f);
 void	fun_tables_init(t_functions *fun, int type);
 void	color_init(t_fractal *f);
+void	events_manager(t_fractal *f);
 
 /*
 ** Fractal functions
@@ -189,14 +189,16 @@ void	julia_mode(int x, int y, void *param);
 void	julia_c_modif(int key, void *param);
 void	change_type(int key, void *param);
 void	disp_info(int key, void *param);
+void	res_increase(int key, void *param);
+void	change_res(int key, void *param);
 
 /*
 ** Creation functions
 */
 
 void	make_image(t_fractal *f);
-void	make_info_bg(t_fractal *f);
 void	make_info_text(t_fractal *f);
+void	make_controls_text(t_fractal *f);
 void	write_ppm(int key, void *param);
 
 #endif

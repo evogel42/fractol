@@ -6,7 +6,7 @@
 /*   By: evogel <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 16:46:50 by evogel            #+#    #+#             */
-/*   Updated: 2019/04/26 13:50:10 by evogel           ###   ########.fr       */
+/*   Updated: 2019/05/12 15:35:39 by evogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,13 @@ void	zoom_in(int x, int y, void *param)
 	double		y_scale;
 
 	f = (t_fractal *)param;
-	x_scale = x * (f->math.plot[1] - f->math.plot[0]) / WIN_X + f->math.plot[0];
-	y_scale = y * (f->math.plot[3] - f->math.plot[2]) / WIN_Y + f->math.plot[2];
+	x_scale = x * (f->math.plot[1] - f->math.plot[0]) / f->win_x + f->math.plot[0];
+	y_scale = y * (f->math.plot[3] - f->math.plot[2]) / f->win_y + f->math.plot[2];
 	f->math.plot[0] = x_scale + (f->math.plot[0] - x_scale) * 0.9;
 	f->math.plot[1] = x_scale + (f->math.plot[1] - x_scale) * 0.9;
 	f->math.plot[2] = y_scale + (f->math.plot[2] - y_scale) * 0.9;
 	f->math.plot[3] = y_scale + (f->math.plot[3] - y_scale) * 0.9;
+	f->math.zoom += 20;
 	make_image(f);
 }
 
@@ -45,12 +46,13 @@ void	zoom_out(int x, int y, void *param)
 	double		y_scale;
 
 	f = (t_fractal *)param;
-	x_scale = x * (f->math.plot[1] - f->math.plot[0]) / WIN_X + f->math.plot[0];
-	y_scale = y * (f->math.plot[3] - f->math.plot[2]) / WIN_Y + f->math.plot[2];
+	x_scale = x * (f->math.plot[1] - f->math.plot[0]) / f->win_x + f->math.plot[0];
+	y_scale = y * (f->math.plot[3] - f->math.plot[2]) / f->win_y + f->math.plot[2];
 	f->math.plot[0] = x_scale + (f->math.plot[0] - x_scale) * 1.1;
 	f->math.plot[1] = x_scale + (f->math.plot[1] - x_scale) * 1.1;
 	f->math.plot[2] = y_scale + (f->math.plot[2] - y_scale) * 1.1;
 	f->math.plot[3] = y_scale + (f->math.plot[3] - y_scale) * 1.1;
+	f->math.zoom -= 20;
 	make_image(f);
 }
 

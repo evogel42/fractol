@@ -6,7 +6,7 @@
 /*   By: evogel <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/08 12:21:07 by evogel            #+#    #+#             */
-/*   Updated: 2019/04/26 14:18:14 by evogel           ###   ########.fr       */
+/*   Updated: 2019/05/12 16:03:34 by evogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	julia6_init(t_math *math)
 	math->c[1] = -0.766211;
 }
 
-float		julia6(double x_start, double y_start, t_math *math)
+float	julia6(double x_start, double y_start, t_math *math)
 {
 	double	zx;
 	double	zy;
@@ -58,7 +58,7 @@ float		julia6(double x_start, double y_start, t_math *math)
 	}
 	if (n < math->iter)
 	{
-		tmp = log((log(zx * zx + zy * zy ) / 6) / log(6)) / log(6);
+		tmp = log((log(zx * zx + zy * zy) / 6) / log(6)) / log(6);
 		n = n + 1 - tmp;
 	}
 	return (n > 0 ? n : 0);

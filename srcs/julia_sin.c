@@ -6,7 +6,7 @@
 /*   By: evogel <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/08 16:41:05 by evogel            #+#    #+#             */
-/*   Updated: 2019/04/18 15:03:44 by evogel           ###   ########.fr       */
+/*   Updated: 2019/05/12 16:07:02 by evogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	julsin_init(t_math *math)
 	math->c[1] = 0.244;
 }
 
-float		julia_sin(double x_start, double y_start, t_math *math)
+float	julia_sin(double x_start, double y_start, t_math *math)
 {
 	double	zx;
 	double	zy;

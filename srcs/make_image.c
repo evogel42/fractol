@@ -6,7 +6,7 @@
 /*   By: evogel <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/08 13:33:24 by evogel            #+#    #+#             */
-/*   Updated: 2019/05/08 14:52:09 by evogel           ###   ########.fr       */
+/*   Updated: 2019/05/12 16:18:02 by evogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,10 @@ static void	maths(t_fractal *f, int x_min, int x_max)
 //		buddhabrot(f);
 //	else
 //	{
-	scale_x = (f->math.plot[1] - f->math.plot[0]) / WIN_X;
-	scale_y = (f->math.plot[3] - f->math.plot[2]) / WIN_Y;
+	scale_x = (f->math.plot[1] - f->math.plot[0]) / f->win_x;
+	scale_y = (f->math.plot[3] - f->math.plot[2]) / f->win_y;
 	y = 0;
-	while (y < WIN_Y)
+	while (y < f->win_y)
 	{
 		x = x_min;
 		while (x < x_max)
@@ -54,9 +54,9 @@ static void	maths(t_fractal *f, int x_min, int x_max)
 			res = f->fun.fractal[f->type](x * scale_x + f->math.plot[0],
 					y * scale_y + f->math.plot[2], &f->math);
 			if ((int)res == f->math.iter)
-				f->mlx.data[x + y * WIN_X] = 0;
+				f->mlx.data[x + y * f->win_x] = 0;
 			else
-				f->mlx.data[x + y * WIN_X] = get_color(res, &f->color);
+				f->mlx.data[x + y * f->win_x] = get_color(res, &f->color);
 			++x;
 		}
 		++y;
@@ -70,17 +70,17 @@ static void	*section(void *param)
 	int			x_min;
 	int			x_max;
 	t_fractal	*f;
-	
+
 	f = (t_fractal *)param;
 	if (i >= THREADS)
 		i = 0;
-	x_min = (WIN_X / THREADS) * i;
-	x_max = (WIN_X / THREADS) * ++i;
+	x_min = (f->win_x / THREADS) * i;
+	x_max = (f->win_x / THREADS) * ++i;
 	maths(f, x_min, x_max);
 	return (NULL);
 }
 
-void	make_image(t_fractal *f)
+void		make_image(t_fractal *f)
 {
 	pthread_t	tid[THREADS];
 	t_mlx		*mlx;
@@ -90,12 +90,14 @@ void	make_image(t_fractal *f)
 	i = 0;
 	while (i < THREADS)
 		if (pthread_create(&tid[i++], NULL, section, (void *)f) != 0)
-			exit(-1); 
+			exit(-1);
 	i = 0;
 	while (i < THREADS)
 		if (pthread_join(tid[i++], NULL) != 0)
 			exit(-1);
 	mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr, mlx->img_ptr, 0, 0);
-	if (f->info)
+	if (f->info == 1)
+		make_controls_text(f);
+	if (f->info == 2)
 		make_info_text(f);
 }

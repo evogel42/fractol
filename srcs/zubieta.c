@@ -6,7 +6,7 @@
 /*   By: evogel <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/08 17:49:10 by evogel            #+#    #+#             */
-/*   Updated: 2019/04/18 15:15:50 by evogel           ###   ########.fr       */
+/*   Updated: 2019/05/12 16:18:42 by evogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	zubieta_init(t_math *math)
 	math->c[1] = 0;
 }
 
-float		zubieta(double x_start, double y_start, t_math *math)
+float	zubieta(double x_start, double y_start, t_math *math)
 {
 	double	zx;
 	double	zy;
@@ -57,17 +57,8 @@ float		zubieta(double x_start, double y_start, t_math *math)
 	}
 	if (n < math->iter)
 	{
-		tmp = log((log(zx * zx + zy * zy ) * 0.5) / log(2)) / log(2);
+		tmp = log((log(zx * zx + zy * zy) * 0.5) / log(2)) / log(2);
 		n = n + 1 - tmp;
 	}
 	return (n > 0 ? n : 0);
 }
-/*
-c.x = 0.149760 | c.y = 0.000000
-c.x = 0.153600 | c.y = 0.000000
-c.x = 0.168960 | c.y = 0.000000
-c.x = 0.165120 | c.y = 0.012000
-c.x = 0.133393 | c.y = -0.131016
-c.x = 0.152589 | c.y = -0.002642
-c.x = 0.152589 | c.y = -0.000242
-*/

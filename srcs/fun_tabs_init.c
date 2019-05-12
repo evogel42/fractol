@@ -6,7 +6,7 @@
 /*   By: evogel <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/10 14:42:38 by evogel            #+#    #+#             */
-/*   Updated: 2019/04/26 15:22:22 by evogel           ###   ########.fr       */
+/*   Updated: 2019/05/12 16:03:03 by evogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,19 @@ static void	fract_init(t_functions *fun)
 //	fun->fset[0][K9_KEY] = &mandelbrot_init;
 }
 
-static void	mouse_type_init(t_functions *fun)
+static void	colorf_init(t_functions *fun)
+{
+	fun->key[NK0_KEY] = &palette0;
+	fun->key[NK1_KEY] = &palette1;
+	fun->key[NK2_KEY] = &palette2;
+	fun->key[NK3_KEY] = &palette3;
+//	fun->key[NK4_KEY] = &palette4;
+	fun->key[NKPL_KEY] = &shift_range;
+	fun->key[NKMN_KEY] = &shift_range;
+	fun->key[NKWC_KEY] = &color_start;
+}
+
+static void	other_init(t_functions *fun)
 {
 	fun->mouse[SCROLLUP_KEY] = &zoom_in;
 	fun->mouse[SCROLLDOWN_KEY] = &zoom_out;
@@ -74,26 +86,18 @@ static void	mouse_type_init(t_functions *fun)
 	fun->key[K7_KEY] = &change_type;
 	fun->key[K8_KEY] = &change_type;
 //	fun->key[K9_KEY] = &change_type;
-}
-
-static void	colorf_init(t_functions *fun)
-{
-	fun->key[NK0_KEY] = &palette0;
-	fun->key[NK1_KEY] = &palette1;
-	fun->key[NK2_KEY] = &palette2;
-	fun->key[NK3_KEY] = &palette3;
-//	fun->key[NK4_KEY] = &palette4;
-	fun->key[NKPL_KEY] = &shift_range;
-	fun->key[NKMN_KEY] = &shift_range;
-	fun->key[NKWC_KEY] = &color_start;
+	fun->key[PUP_KEY] = &change_res;
+	fun->key[PDOWN_KEY] = &change_res;
+	fun->key[I_KEY] = &disp_info;
+	fun->key[F15_KEY] = &write_ppm;
 }
 
 void		fun_tables_init(t_functions *fun, int type)
 {
 	null_init(fun);
-	mouse_type_init(fun);
 	fract_init(fun);
 	colorf_init(fun);
+	other_init(fun);
 	fun->key[UP_KEY] = &pan_image;
 	fun->key[DOWN_KEY] = &pan_image;
 	fun->key[LEFT_KEY] = &pan_image;
@@ -112,6 +116,4 @@ void		fun_tables_init(t_functions *fun, int type)
 		fun->key[S_KEY] = &julia_c_modif;
 		fun->key[D_KEY] = &julia_c_modif;
 	}
-	fun->key[I_KEY] = &disp_info;
-	fun->key[F15_KEY] = &write_ppm;
 }

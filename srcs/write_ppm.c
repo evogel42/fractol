@@ -6,7 +6,7 @@
 /*   By: evogel <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/22 12:10:35 by evogel            #+#    #+#             */
-/*   Updated: 2019/04/08 20:46:14 by evogel           ###   ########.fr       */
+/*   Updated: 2019/05/12 16:22:48 by evogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,19 +25,19 @@ static char	*make_filename(int n)
 	return (filename);
 }
 
-static void	data_fill_ppm(int fd, int *data)
+static void	data_fill_ppm(int fd, int *data, int win_x, int win_y)
 {
 	int			i;
 
 	ft_putendl_fd("P3", fd);
-	ft_putnbr_fd(WIN_X, fd);
+	ft_putnbr_fd(win_x, fd);
 	ft_putchar_fd(' ', fd);
-	ft_putnbr_fd(WIN_Y, fd);
+	ft_putnbr_fd(win_y, fd);
 	ft_putchar_fd('\n', fd);
 	ft_putnbr_fd(255, fd);
 	ft_putchar_fd('\n', fd);
 	i = 2;
-	while (i < WIN_X * WIN_Y * 4)
+	while (i < win_x * win_y * 4)
 	{
 		while (i % 4 != 3 && i >= 0)
 		{
@@ -52,22 +52,27 @@ static void	data_fill_ppm(int fd, int *data)
 void		write_ppm(int key, void *param)
 {
 	static int	n = 1;
-	int			fd;
 	char		*filename;
+	char		*tmp;
+	t_fractal	*f;
 
-	(void)key;
-	while (n < 100 && (fd = open((filename = make_filename(n)), 
-					O_CREAT | O_WRONLY | O_EXCL, 0666)) == -1)
+	f = (t_fractal *)param;
+	while (n < 100)
 	{
+		filename = make_filename(n);
 		if (filename == NULL)
 			return (ft_putendl("Error creating file"));
+		if ((key = open(filename, O_CREAT | O_WRONLY | O_EXCL, 0666)) != -1)
+			break ;
 		free(filename);
 		++n;
 	}
 	if (n == 100)
 		return (ft_putendl("Screenshot limit reached"));
-	data_fill_ppm(fd, ((t_fractal *)param)->mlx.data);
-	ft_printf("%s was successfully created\n", filename);
+	data_fill_ppm(key, f->mlx.data, f->win_x, f->win_y);
+	tmp = ft_strjoin(filename, " was successfully created");
+	mlx_string_put(f->mlx.mlx_ptr, f->mlx.win_ptr, 10, 10, 0xFFFFFF, tmp);
 	free(filename);
-	close(fd);
+	free(tmp);
+	close(key);
 }

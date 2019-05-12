@@ -6,21 +6,11 @@
 /*   By: evogel <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:13:13 by evogel            #+#    #+#             */
-/*   Updated: 2019/04/18 14:31:44 by evogel           ###   ########.fr       */
+/*   Updated: 2019/05/12 16:02:09 by evogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
-
-void	print_info(t_fractal *f)
-{
-	ft_printf("x.min = %f | x.max = %f\n", f->math.plot[0], f->math.plot[1]);
-	ft_printf("y.min = %f | y.max = %f\n", f->math.plot[2], f->math.plot[3]);
-	ft_printf("c.x = %f | c.y = %f\n", f->math.c[0], f->math.c[1]);
-	ft_printf("max-iter = %d\n", f->math.iter);
-	ft_printf("escape = %d\n", f->math.escape);
-	ft_printf("range = %d\n", f->color.range);
-}
 
 int		do_close1(int keycode, void *param)
 {
@@ -73,9 +63,9 @@ int		do_move(int x, int y, void *param)
 	f = (t_fractal *)param;
 	if (f->type >= 1 && f->math.mode == 1)
 	{
-		f->math.c[0] = x * ((f->math.plot[1] - f->math.plot[0]) / WIN_X)
+		f->math.c[0] = x * ((f->math.plot[1] - f->math.plot[0]) / f->win_x)
 			+ f->math.plot[0];
-		f->math.c[1] = y * ((f->math.plot[3] - f->math.plot[2]) / WIN_Y)
+		f->math.c[1] = y * ((f->math.plot[3] - f->math.plot[2]) / f->win_y)
 			+ f->math.plot[2];
 		make_image(f);
 	}
