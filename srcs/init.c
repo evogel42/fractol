@@ -6,7 +6,7 @@
 /*   By: evogel <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/01 14:57:37 by evogel            #+#    #+#             */
-/*   Updated: 2019/05/12 15:12:56 by evogel           ###   ########.fr       */
+/*   Updated: 2019/05/16 13:22:40 by evogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ void		color_init(t_fractal *f)
 
 void		maths_init(t_fractal *f)
 {
-	f->fun.fset[0][f->type](&f->math);
+	if (f->fun.fset[0][f->type])
+		f->fun.fset[0][f->type](&f->math);
 	f->math.zoom = 0;
 	f->color.range = MAX_ITER * 0.5;
 	f->color.start = 0;

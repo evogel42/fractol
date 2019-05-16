@@ -6,7 +6,7 @@
 /*   By: evogel <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/01 14:56:41 by evogel            #+#    #+#             */
-/*   Updated: 2019/05/12 16:05:01 by evogel           ###   ########.fr       */
+/*   Updated: 2019/05/16 17:34:14 by evogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ static int	get_type(char *av)
 		return (K7_KEY);
 	else if (ft_strequ(av, "thorn"))
 		return (K8_KEY);
-//	else if (ft_strequ(av, "buddhabrot"))
-//		return (K9_KEY);
+	else if (ft_strequ(av, "buddhabrot"))
+		return (K9_KEY);
 	else
 		return (-1);
 }
@@ -39,18 +39,20 @@ static int	get_type(char *av)
 static int	ft_usage(void)
 {
 	ft_putstr("usage: ./fractol [type]\n");
-	ft_putstr("available types: mandelbrot, mandel4, mandelverse, julia6,
-			julia_sin, zubieta, thorn, buddhabrot\n");
+	ft_putstr(TYPES);
 	return (0);
 }
 
 void		events_manager(t_fractal *f)
 {
-	mlx_hook(f->mlx.win_ptr, KEYRELEASE, KEYRELEASEMASK, do_close1, (void*)f);
-	mlx_hook(f->mlx.win_ptr, DESTROYNOTIFY, 0, do_close2, (void*)f);
-	mlx_hook(f->mlx.win_ptr, KEYPRESS, KEYPRESSMASK, do_key, (void*)f);
-	mlx_hook(f->mlx.win_ptr, BUTTONPRESS, BUTTONPRESSMASK, do_mouse, (void*)f);
-	mlx_hook(f->mlx.win_ptr, MOTIONNOTIFY, POINTERMOTIONMASK, do_move, (void*)f);
+	void *win;
+
+	win = f->mlx.win_ptr;
+	mlx_hook(win, KEYRELEASE, KEYRELEASEMASK, do_close1, (void*)f);
+	mlx_hook(win, DESTROYNOTIFY, 0, do_close2, (void*)f);
+	mlx_hook(win, KEYPRESS, KEYPRESSMASK, do_key, (void*)f);
+	mlx_hook(win, BUTTONPRESS, BUTTONPRESSMASK, do_mouse, (void*)f);
+	mlx_hook(win, MOTIONNOTIFY, POINTERMOTIONMASK, do_move, (void*)f);
 	mlx_loop(f->mlx.mlx_ptr);
 }
 

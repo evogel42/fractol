@@ -6,7 +6,7 @@
 /*   By: evogel <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/10 14:42:38 by evogel            #+#    #+#             */
-/*   Updated: 2019/05/12 16:03:03 by evogel           ###   ########.fr       */
+/*   Updated: 2019/05/16 17:34:32 by evogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,7 @@ static void	fract_init(t_functions *fun)
 	fun->fractal[K8_KEY] = &thorn;
 	fun->fset[0][K8_KEY] = &thorn_init;
 	fun->fset[1][K8_KEY] = &thorn_presets;
-//	fun->fractal[K9_KEY] = &buddhabrot;
-//	fun->fset[0][K9_KEY] = &mandelbrot_init;
+	fun->fset[0][K9_KEY] = &buddhabrot_init;
 }
 
 static void	colorf_init(t_functions *fun)
@@ -66,7 +65,6 @@ static void	colorf_init(t_functions *fun)
 	fun->key[NK1_KEY] = &palette1;
 	fun->key[NK2_KEY] = &palette2;
 	fun->key[NK3_KEY] = &palette3;
-//	fun->key[NK4_KEY] = &palette4;
 	fun->key[NKPL_KEY] = &shift_range;
 	fun->key[NKMN_KEY] = &shift_range;
 	fun->key[NKWC_KEY] = &color_start;
@@ -85,7 +83,7 @@ static void	other_init(t_functions *fun)
 	fun->key[K6_KEY] = &change_type;
 	fun->key[K7_KEY] = &change_type;
 	fun->key[K8_KEY] = &change_type;
-//	fun->key[K9_KEY] = &change_type;
+	fun->key[K9_KEY] = &change_type;
 	fun->key[PUP_KEY] = &change_res;
 	fun->key[PDOWN_KEY] = &change_res;
 	fun->key[I_KEY] = &disp_info;

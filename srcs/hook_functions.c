@@ -6,7 +6,7 @@
 /*   By: evogel <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:13:13 by evogel            #+#    #+#             */
-/*   Updated: 2019/05/12 16:02:09 by evogel           ###   ########.fr       */
+/*   Updated: 2019/05/16 13:31:01 by evogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,6 @@ int		do_key(int keycode, void *param)
 	f = (t_fractal *)param;
 	if (f->fun.key[keycode])
 		f->fun.key[keycode](keycode, (void *)f);
-	if (keycode == NKNTR_KEY)
-		print_info(f);
 	return (0);
 }
 

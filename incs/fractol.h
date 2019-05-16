@@ -6,7 +6,7 @@
 /*   By: brichard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 11:13:35 by brichard          #+#    #+#             */
-/*   Updated: 2019/05/12 15:12:17 by evogel           ###   ########.fr       */
+/*   Updated: 2019/05/16 17:51:57 by evogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,17 +38,36 @@
 # define THREADS 8
 # define MAX_ITER 60
 
-# define FHD 1080
-# define TWOK 1440
-# define FOURK 2160
-# define FIVEK 2880
-# define EIGHTK 4320
+# define TYPES "available types: mandelbrot, mandel4, mandelverse, julia6, julia_sin, zubieta, thorn, buddhabrot\n"
+# define C1	"Mouse Controls"
+# define C2 "--------------------------------"
+# define C3 "Scrollwheel : Zoom in/out"
+# define C4 "Left click  : Center"
+# define C5 "Wheel click : Lock/unlock param"
+# define C6 "Keyboard Controls"
+# define C7 "--------------------------------"
+# define C8 "#1-9   : Change fractal"
+# define C9 "Arrows : Pan image"
+# define C10 "WASD   : Increment param"
+# define C11 "< >    : Vary max iterations"
+# define C12 "- +    : Vary escape value"
+# define C13 "Tab    : Example param values"
+# define C14 "I      : Toggle info"
+# define C15 "Space  : Reset"
+# define C16 "F15    : Save screenshot"
+# define C17 "Numpad Controls"
+# define C18 "--------------------------------"
+# define C19 "#1-6 : Change color palette"
+# define C20 "- +  : Change color range"
+# define C21 "*    : Change palette order"
+# define WHITE 0xFFFFFF
 
-# define PUT1 ft_putendl("HERE1");
-# define PUT2 ft_putendl("HERE2");
-# define PUT3 ft_putendl("HERE3");
-# define PUT4 ft_putendl("HERE4");
-# define PUT5 ft_putendl("HERE5");
+typedef struct	s_buddha
+{
+	int		*expo;
+	int		size;
+	int		max_expo;
+}				t_buddha;
 
 typedef union	u_color
 {
@@ -150,6 +169,7 @@ void	thorn_init(t_math *math);
 void	thorn_presets(t_math *math);
 
 void	buddhabrot(t_fractal *f);
+void	buddhabrot_init(t_math *math);
 
 /*
 ** Color functions
@@ -197,8 +217,17 @@ void	change_res(int key, void *param);
 */
 
 void	make_image(t_fractal *f);
-void	make_info_text(t_fractal *f);
-void	make_controls_text(t_fractal *f);
+void	make_info_text1(t_fractal *f, void *mlx, void *win);
+void	make_controls_text(t_fractal *f, void *mlx, void *win);
 void	write_ppm(int key, void *param);
 
+/*
+** Tools
+*/
+
+double	x2cx(int x, t_fractal *f);
+double	y2cy(int y, t_fractal *f);
+int		cx2x(double cx, t_fractal *f);
+int		cy2y(double cy, t_fractal *f);
+	
 #endif

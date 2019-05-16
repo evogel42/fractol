@@ -6,7 +6,7 @@
 /*   By: evogel <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 16:46:50 by evogel            #+#    #+#             */
-/*   Updated: 2019/05/12 15:35:39 by evogel           ###   ########.fr       */
+/*   Updated: 2019/05/16 17:52:22 by evogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,16 +25,16 @@ void	reset(int key, void *param)
 void	zoom_in(int x, int y, void *param)
 {
 	t_fractal	*f;
-	double		x_scale;
-	double		y_scale;
+	double		cx;
+	double		cy;
 
 	f = (t_fractal *)param;
-	x_scale = x * (f->math.plot[1] - f->math.plot[0]) / f->win_x + f->math.plot[0];
-	y_scale = y * (f->math.plot[3] - f->math.plot[2]) / f->win_y + f->math.plot[2];
-	f->math.plot[0] = x_scale + (f->math.plot[0] - x_scale) * 0.9;
-	f->math.plot[1] = x_scale + (f->math.plot[1] - x_scale) * 0.9;
-	f->math.plot[2] = y_scale + (f->math.plot[2] - y_scale) * 0.9;
-	f->math.plot[3] = y_scale + (f->math.plot[3] - y_scale) * 0.9;
+	cx = x * (f->math.plot[1] - f->math.plot[0]) / f->win_x + f->math.plot[0];
+	cy = y * (f->math.plot[3] - f->math.plot[2]) / f->win_y + f->math.plot[2];
+	f->math.plot[0] = cx + (f->math.plot[0] - cx) * 0.9;
+	f->math.plot[1] = cx + (f->math.plot[1] - cx) * 0.9;
+	f->math.plot[2] = cy + (f->math.plot[2] - cy) * 0.9;
+	f->math.plot[3] = cy + (f->math.plot[3] - cy) * 0.9;
 	f->math.zoom += 20;
 	make_image(f);
 }
@@ -42,16 +42,16 @@ void	zoom_in(int x, int y, void *param)
 void	zoom_out(int x, int y, void *param)
 {
 	t_fractal	*f;
-	double		x_scale;
-	double		y_scale;
+	double		cx;
+	double		cy;
 
 	f = (t_fractal *)param;
-	x_scale = x * (f->math.plot[1] - f->math.plot[0]) / f->win_x + f->math.plot[0];
-	y_scale = y * (f->math.plot[3] - f->math.plot[2]) / f->win_y + f->math.plot[2];
-	f->math.plot[0] = x_scale + (f->math.plot[0] - x_scale) * 1.1;
-	f->math.plot[1] = x_scale + (f->math.plot[1] - x_scale) * 1.1;
-	f->math.plot[2] = y_scale + (f->math.plot[2] - y_scale) * 1.1;
-	f->math.plot[3] = y_scale + (f->math.plot[3] - y_scale) * 1.1;
+	cx = x * (f->math.plot[1] - f->math.plot[0]) / f->win_x + f->math.plot[0];
+	cy = y * (f->math.plot[3] - f->math.plot[2]) / f->win_y + f->math.plot[2];
+	f->math.plot[0] = cx + (f->math.plot[0] - cx) * 1.1;
+	f->math.plot[1] = cx + (f->math.plot[1] - cx) * 1.1;
+	f->math.plot[2] = cy + (f->math.plot[2] - cy) * 1.1;
+	f->math.plot[3] = cy + (f->math.plot[3] - cy) * 1.1;
 	f->math.zoom -= 20;
 	make_image(f);
 }
@@ -64,8 +64,6 @@ void	julia_mode(int x, int y, void *param)
 	(void)x;
 	(void)y;
 	f->math.mode = (f->math.mode == 0 ? 1 : 0);
-	if (f->math.mode == 1)
-		f->math.iter = MAX_ITER;
 }
 
 void	julia_c_modif(int key, void *param)

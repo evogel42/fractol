@@ -5,39 +5,33 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: evogel <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/21 17:30:37 by evogel            #+#    #+#             */
+/*   Created: 2019/05/16 17:38:32 by evogel            #+#    #+#             */
+/*   Updated: 2019/05/16 17:47:12 by evogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-typedef struct	s_buddha
+void		buddhabrot_init(t_math *math)
 {
-	int		exposure[WIN_X * WIN_Y];
-	int		max_exposure;
-}				t_buddha;
+	math->plot[3] = 1.2;
+	math->plot[2] = -1.2;
+	math->plot[1] = 0.5 * RATIO * (math->plot[3] - math->plot[2]) - 0.75;
+	math->plot[0] = math->plot[1] * -1 - 1.5;
+	math->iter = MAX_ITER;
+	math->escape = 4;
+	math->mode = 0;
+	math->c[0] = 0;
+	math->c[1] = 0;
+}
 
-void			xy2z(int x, int y, double *zx, double *zy, t_fractal *f)
-{
-	*zx = x * (f->math.plot[1] - f->math.plot[0]) / WIN_X + f->math.plot[0];
-	*zy = y * (f->math.plot[3] - f->math.plot[2]) / WIN_Y + f->math.plot[2];
-}	
-
-void			z2xy(double zx, double zy, int *x, int *y, t_fractal *f)
-{
-	*x = WIN_X * zx / (f->math.plot[1] - f->math.plot[0]) + WIN_X / 2;
-	*y = WIN_Y * zy / (f->math.plot[3] - f->math.plot[2]) + WIN_Y / 2;
-}	
-
-void			get_exposure(t_buddha *buddha, t_fractal *f, double cx, double cy)
+static void	get_exposure(t_buddha *b, t_fractal *f, double cx, double cy)
 {
 	double			zx;
 	double			zy;
 	double			tmp;
-	int				x;
-	int				y;
 	int				index;
-	
+
 	zx = 0;
 	zy = 0;
 	while (zx * zx + zy * zy < f->math.escape)
@@ -45,60 +39,62 @@ void			get_exposure(t_buddha *buddha, t_fractal *f, double cx, double cy)
 		tmp = zx * zx - zy * zy + cx;
 		zy = 2 * zx * zy + cy;
 		zx = tmp;
-		z2xy(zx, zy, &x, &y, f);
-		index = x + y * WIN_X;
-		if (index >= 0 && index < WIN_X * WIN_Y)
+		index = cx2x(zx, f) + cy2y(zy, f) * f->win_x;
+		if (index >= 0 && index < f->win_x * f->win_y)
 		{
-			buddha->exposure[index]++;
-			if (buddha->exposure[index] > buddha->max_exposure)
-				buddha->max_exposure = buddha->exposure[index];
+			b->expo[index]++;
+			if (b->expo[index] > b->max_expo)
+				b->max_expo = b->expo[index];
 		}
 	}
 }
 
-void		draw_buddha(t_buddha *buddha, t_fractal *f)
+static void	draw_buddha(t_buddha *b, t_fractal *f)
 {
 	int			x;
 	int			y;
 	float		res;
 
 	y = 0;
-	while (y < WIN_Y)
+	while (y < f->win_y)
 	{
 		x = 0;
-		while (x < WIN_X)
+		while (x < f->win_x)
 		{
-			res = (double)buddha->exposure[x + y * WIN_X] / buddha->max_exposure * f->color.range * 2;
-			f->mlx.data[x + y * WIN_X] = get_color(res, &f->color);
+			res = (double)b->expo[x + y * f->win_x] / b->max_expo
+				* f->color.range * 2;
+			f->mlx.data[x + y * f->win_x] = get_color(res, &f->color);
 			++x;
 		}
 		++y;
 	}
 }
 
-void	buddhabrot(t_fractal *f)
+void		buddhabrot(t_fractal *f)
 {
-	static t_buddha	buddha;
-	int			i;
-	int			x;
-	int			y;
-	float		res;
-	double		cx;
-	double		cy;
-	
-	ft_bzero((void*)&buddha, sizeof(t_buddha));
-	i = 0;
-	while (buddha.max_exposure < 800)
+	static t_buddha	b = {NULL, 0, 0};
+	int				x;
+	int				y;
+	float			res;
+
+	if (b.size != f->win_x * f->win_y || f->math.iter == MAX_ITER)
 	{
-		res = f->math.iter;
+		b.size = f->win_x * f->win_y;
+		b.max_expo = 0;
+		if (b.expo != NULL)
+			free(b.expo);
+		if (!(b.expo = (int *)ft_memalloc(sizeof(int) * b.size)))
+			exit(0);
+	}
+	while (b.max_expo < f->math.iter && (res = f->math.iter))
+	{
 		while (res == f->math.iter)
 		{
-			x = rand() % WIN_X;
-			y = rand() % WIN_Y;
-			xy2z(x, y, &cx, &cy, f);
-			res = mandelbrot(cx, cy, &f->math);
+			x = rand() % f->win_x;
+			y = rand() % f->win_y;
+			res = mandelbrot(x2cx(x, f), y2cy(y, f), &f->math);
 		}
-		get_exposure(&buddha, f, cx, cy);
+		get_exposure(&b, f, x2cx(x, f), y2cy(y, f));
 	}
-	draw_buddha(&buddha,f);
+	draw_buddha(&b, f);
 }

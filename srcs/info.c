@@ -6,7 +6,7 @@
 /*   By: evogel <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 15:23:05 by evogel            #+#    #+#             */
-/*   Updated: 2019/05/12 16:05:24 by evogel           ###   ########.fr       */
+/*   Updated: 2019/05/16 17:56:50 by evogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,85 +40,98 @@ static void	make_info_bg(t_fractal *f, int width, int height, int fill)
 	mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr, mlx->img_ptr, 0, 0);
 }
 
-void		make_info_text(t_fractal *f)
+void		string_put(t_fractal *f, int x, int y, int param)
+{
+	char *tmp;
+
+	tmp = ft_itoa(param);
+	mlx_string_put(f->mlx.mlx_ptr, f->mlx.win_ptr, x, y, WHITE, tmp);
+	free(tmp);
+}
+
+void		make_info_text2(t_fractal *f, int i, void *mlx, void *win)
+{
+	char *tmp;
+
+	string_put(f, 150, i, f->math.escape);
+	mlx_string_put(mlx, win, 20, (i += 30), WHITE, "Color range:");
+	string_put(f, 150, i, f->color.range);
+	mlx_string_put(mlx, win, 20, (i += 30), WHITE, "Resolution:");
+	tmp = ft_strjoin(ft_itoa(f->win_x), "x");
+	mlx_string_put(mlx, win, 150, i, WHITE, tmp);
+	free(tmp);
+	string_put(f, 200, i, f->win_y);
+	if (f->type > K3_KEY && f->type != K9_KEY)
+	{
+		mlx_string_put(mlx, win, 20, (i += 50), WHITE, "Julia type parameter");
+		mlx_string_put(mlx, win, 20, (i += 20), WHITE,
+				"------------------------");
+		mlx_string_put(mlx, win, 40, (i += 30), WHITE, "x =");
+		tmp = ft_flotoa(f->math.c[0], 6);
+		mlx_string_put(mlx, win, 80, i, WHITE, tmp);
+		free(tmp);
+		mlx_string_put(mlx, win, 40, (i += 30), WHITE, "y =");
+		tmp = ft_flotoa(f->math.c[1], 6);
+		mlx_string_put(mlx, win, 80, i, WHITE, tmp);
+		free(tmp);
+	}
+}
+
+void		make_info_text1(t_fractal *f, void *mlx, void *win)
 {
 	static char	names[8][12] = {"mandelbrot", "mandel4", "mandelverse", "julia",
 		"julia6", "julia_sin", "zubieta", "thorn"};
 	static int	nums[8] = {K1_KEY, K2_KEY, K3_KEY, K4_KEY, K5_KEY, K6_KEY,
 		K7_KEY, K8_KEY};
-	int				i;
-	char			*tmp;
+	int			i;
+	char		*tmp;
 
-	make_info_bg(f, 270, 300, 0xAA000000);
+	make_info_bg(f, 270, 330, 0xAA000000);
 	i = 0;
 	while (f->type != nums[i] && i < 8)
 		++i;
-	mlx_string_put(f->mlx.mlx_ptr, f->mlx.win_ptr, 20, 10, 0xFFFFFF, "Fractal:");
-	mlx_string_put(f->mlx.mlx_ptr, f->mlx.win_ptr, 150, 10, 0xFFFFFF, names[i]);
+	mlx_string_put(mlx, win, 20, 10, WHITE, "Fractal:");
+	mlx_string_put(mlx, win, 150, 10, WHITE, names[i]);
 	i = 10;
-//	mlx_string_put(f->mlx.mlx_ptr, f->mlx.win_ptr, 20, (i += 30), 0xFFFFFF, "Zoom:");
-//	tmp = ft_strjoin(ft_itoa(f->math.zoom), "%");
-//	mlx_string_put(f->mlx.mlx_ptr, f->mlx.win_ptr, 150, i, 0xFFFFFF, tmp);
-//	free(tmp);
-//	mlx_string_put(f->mlx.mlx_ptr, f->mlx.win_ptr, 20, (i += 30), 0xFFFFFF, "Zoom:");
+	mlx_string_put(mlx, win, 20, (i += 30), WHITE, "Zoom:");
+	tmp = ft_strjoin(ft_itoa(f->math.zoom), "%");
+	mlx_string_put(mlx, win, 150, i, WHITE, tmp);
+	free(tmp);
+//	mlx_string_put(mlx, win, 20, (i += 30), WHITE, "Zoom:");
 //	tmp = ft_strjoin(ft_itoa(100.0 / (f->math.plot[1] - f->math.plot[0])), "%");
-//	mlx_string_put(f->mlx.mlx_ptr, f->mlx.win_ptr, 150, i, 0xFFFFFF, tmp);
+//	mlx_string_put(mlx, win, 150, i, WHITE, tmp);
 //	free(tmp);
-	mlx_string_put(f->mlx.mlx_ptr, f->mlx.win_ptr, 20, (i += 30), 0xFFFFFF, "Max iter:");
-	mlx_string_put(f->mlx.mlx_ptr, f->mlx.win_ptr, 150, i, 0xFFFFFF, (tmp = ft_itoa(f->math.iter)));
-	free(tmp);
-	mlx_string_put(f->mlx.mlx_ptr, f->mlx.win_ptr, 20, (i += 30), 0xFFFFFF, "Escape val:");
-	mlx_string_put(f->mlx.mlx_ptr, f->mlx.win_ptr, 150, i, 0xFFFFFF, (tmp = ft_itoa(f->math.escape)));
-	free(tmp);
-	mlx_string_put(f->mlx.mlx_ptr, f->mlx.win_ptr, 20, (i += 30), 0xFFFFFF, "Color range:");
-	mlx_string_put(f->mlx.mlx_ptr, f->mlx.win_ptr, 150, i, 0xFFFFFF, (tmp = ft_itoa(f->color.range)));
-	free(tmp);
-	mlx_string_put(f->mlx.mlx_ptr, f->mlx.win_ptr, 20, (i += 30), 0xFFFFFF, "Resolution:");
-	tmp = ft_strjoin(ft_itoa(f->win_x), "x");
-	mlx_string_put(f->mlx.mlx_ptr, f->mlx.win_ptr, 150, i, 0xFFFFFF, tmp);
-	free(tmp);
-	mlx_string_put(f->mlx.mlx_ptr, f->mlx.win_ptr, 200, i, 0xFFFFFF, (tmp = ft_itoa(f->win_y)));
-	free(tmp);
-	if (f->type > K3_KEY)
-	{
-		mlx_string_put(f->mlx.mlx_ptr, f->mlx.win_ptr, 20, (i += 50), 0xFFFFFF, "Julia type parameter");
-		mlx_string_put(f->mlx.mlx_ptr, f->mlx.win_ptr, 20, (i += 20), 0xFFFFFF, "------------------------");
-		mlx_string_put(f->mlx.mlx_ptr, f->mlx.win_ptr, 40, (i += 30), 0xFFFFFF, "x =");
-		mlx_string_put(f->mlx.mlx_ptr, f->mlx.win_ptr, 80, i, 0xFFFFFF, (tmp = ft_flotoa(f->math.c[0], 6)));
-		free(tmp);
-		mlx_string_put(f->mlx.mlx_ptr, f->mlx.win_ptr, 40, (i += 30), 0xFFFFFF, "y =");
-		mlx_string_put(f->mlx.mlx_ptr, f->mlx.win_ptr, 80, i, 0xFFFFFF, (tmp = ft_flotoa(f->math.c[1], 6)));
-		free(tmp);
-	}
+	mlx_string_put(mlx, win, 20, (i += 30), WHITE, "Max iter:");
+	string_put(f, 150, i, f->math.iter);
+	mlx_string_put(mlx, win, 20, (i += 30), WHITE, "Escape val:");
+	make_info_text2(f, i, mlx, win);
 }
 
-void		make_controls_text(t_fractal *f)
+void		make_controls_text(t_fractal *f, void *mlx, void *win)
 {
-	int x;
 	int	y;
 
 	make_info_bg(f, 350, f->win_y, 0x60000000);
-	x = 20;
 	y = 10;
-	mlx_string_put(f->mlx.mlx_ptr, f->mlx.win_ptr, x, y, 0xFFFFFF, "Mouse Controls");
-	mlx_string_put(f->mlx.mlx_ptr, f->mlx.win_ptr, x, (y += 20), 0xFFFFFF, "--------------------------------");
-	mlx_string_put(f->mlx.mlx_ptr, f->mlx.win_ptr, x, (y += 30), 0xFFFFFF, "Scrollwheel : Zoom in/out");
-	mlx_string_put(f->mlx.mlx_ptr, f->mlx.win_ptr, x, (y += 30), 0xFFFFFF, "Left click  : Center");
-	mlx_string_put(f->mlx.mlx_ptr, f->mlx.win_ptr, x, (y += 30), 0xFFFFFF, "Wheel click : Lock/unlock param");
-	mlx_string_put(f->mlx.mlx_ptr, f->mlx.win_ptr, x, (y += 60), 0xFFFFFF, "Keyboard Controls");
-	mlx_string_put(f->mlx.mlx_ptr, f->mlx.win_ptr, x, (y += 20), 0xFFFFFF, "--------------------------------");
-	mlx_string_put(f->mlx.mlx_ptr, f->mlx.win_ptr, x, (y += 30), 0xFFFFFF, "#1-9   : Change fractal");
-	mlx_string_put(f->mlx.mlx_ptr, f->mlx.win_ptr, x, (y += 30), 0xFFFFFF, "Arrows : Pan image");
-	mlx_string_put(f->mlx.mlx_ptr, f->mlx.win_ptr, x, (y += 30), 0xFFFFFF, "WASD   : Increment param");
-	mlx_string_put(f->mlx.mlx_ptr, f->mlx.win_ptr, x, (y += 30), 0xFFFFFF, "< >    : Vary max iterations");
-	mlx_string_put(f->mlx.mlx_ptr, f->mlx.win_ptr, x, (y += 30), 0xFFFFFF, "- +    : Vary escape value");
-	mlx_string_put(f->mlx.mlx_ptr, f->mlx.win_ptr, x, (y += 30), 0xFFFFFF, "Tab    : Example param values");
-	mlx_string_put(f->mlx.mlx_ptr, f->mlx.win_ptr, x, (y += 30), 0xFFFFFF, "I      : Toggle info");
-	mlx_string_put(f->mlx.mlx_ptr, f->mlx.win_ptr, x, (y += 30), 0xFFFFFF, "Space  : Reset");
-	mlx_string_put(f->mlx.mlx_ptr, f->mlx.win_ptr, x, (y += 30), 0xFFFFFF, "F15    : Save screenshot");
-	mlx_string_put(f->mlx.mlx_ptr, f->mlx.win_ptr, x, (y += 60), 0xFFFFFF, "Numpad Controls");
-	mlx_string_put(f->mlx.mlx_ptr, f->mlx.win_ptr, x, (y += 20), 0xFFFFFF, "--------------------------------");
-	mlx_string_put(f->mlx.mlx_ptr, f->mlx.win_ptr, x, (y += 30), 0xFFFFFF, "#1-6 : Change color palette");
-	mlx_string_put(f->mlx.mlx_ptr, f->mlx.win_ptr, x, (y += 30), 0xFFFFFF, "- +  : Change color range");
-	mlx_string_put(f->mlx.mlx_ptr, f->mlx.win_ptr, x, (y += 30), 0xFFFFFF, "*    : Change palette order");
+	mlx_string_put(mlx, win, 20, y, WHITE, C1);
+	mlx_string_put(mlx, win, 20, (y += 20), WHITE, C2);
+	mlx_string_put(mlx, win, 20, (y += 30), WHITE, C3);
+	mlx_string_put(mlx, win, 20, (y += 30), WHITE, C4);
+	mlx_string_put(mlx, win, 20, (y += 30), WHITE, C5);
+	mlx_string_put(mlx, win, 20, (y += 60), WHITE, C6);
+	mlx_string_put(mlx, win, 20, (y += 20), WHITE, C7);
+	mlx_string_put(mlx, win, 20, (y += 30), WHITE, C8);
+	mlx_string_put(mlx, win, 20, (y += 30), WHITE, C9);
+	mlx_string_put(mlx, win, 20, (y += 30), WHITE, C10);
+	mlx_string_put(mlx, win, 20, (y += 30), WHITE, C11);
+	mlx_string_put(mlx, win, 20, (y += 30), WHITE, C12);
+	mlx_string_put(mlx, win, 20, (y += 30), WHITE, C13);
+	mlx_string_put(mlx, win, 20, (y += 30), WHITE, C14);
+	mlx_string_put(mlx, win, 20, (y += 30), WHITE, C15);
+	mlx_string_put(mlx, win, 20, (y += 30), WHITE, C16);
+	mlx_string_put(mlx, win, 20, (y += 60), WHITE, C17);
+	mlx_string_put(mlx, win, 20, (y += 20), WHITE, C18);
+	mlx_string_put(mlx, win, 20, (y += 30), WHITE, C19);
+	mlx_string_put(mlx, win, 20, (y += 30), WHITE, C20);
+	mlx_string_put(mlx, win, 20, (y += 30), WHITE, C21);
 }
