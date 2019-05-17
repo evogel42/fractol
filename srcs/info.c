@@ -6,7 +6,7 @@
 /*   By: evogel <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 15:23:05 by evogel            #+#    #+#             */
-/*   Updated: 2019/05/16 17:56:50 by evogel           ###   ########.fr       */
+/*   Updated: 2019/05/17 15:38:03 by evogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,13 +94,9 @@ void		make_info_text1(t_fractal *f, void *mlx, void *win)
 	mlx_string_put(mlx, win, 150, 10, WHITE, names[i]);
 	i = 10;
 	mlx_string_put(mlx, win, 20, (i += 30), WHITE, "Zoom:");
-	tmp = ft_strjoin(ft_itoa(f->math.zoom), "%");
+	tmp = ft_strjoin("x", ft_itoa(f->math.zoom));
 	mlx_string_put(mlx, win, 150, i, WHITE, tmp);
 	free(tmp);
-//	mlx_string_put(mlx, win, 20, (i += 30), WHITE, "Zoom:");
-//	tmp = ft_strjoin(ft_itoa(100.0 / (f->math.plot[1] - f->math.plot[0])), "%");
-//	mlx_string_put(mlx, win, 150, i, WHITE, tmp);
-//	free(tmp);
 	mlx_string_put(mlx, win, 20, (i += 30), WHITE, "Max iter:");
 	string_put(f, 150, i, f->math.iter);
 	mlx_string_put(mlx, win, 20, (i += 30), WHITE, "Escape val:");

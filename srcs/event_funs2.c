@@ -6,7 +6,7 @@
 /*   By: evogel <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 16:46:50 by evogel            #+#    #+#             */
-/*   Updated: 2019/05/16 17:52:22 by evogel           ###   ########.fr       */
+/*   Updated: 2019/05/17 15:38:40 by evogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,13 @@ void	zoom_in(int x, int y, void *param)
 	double		cy;
 
 	f = (t_fractal *)param;
-	cx = x * (f->math.plot[1] - f->math.plot[0]) / f->win_x + f->math.plot[0];
-	cy = y * (f->math.plot[3] - f->math.plot[2]) / f->win_y + f->math.plot[2];
+	cx = x2cx(x, f);
+	cy = y2cy(y, f);
 	f->math.plot[0] = cx + (f->math.plot[0] - cx) * 0.9;
 	f->math.plot[1] = cx + (f->math.plot[1] - cx) * 0.9;
 	f->math.plot[2] = cy + (f->math.plot[2] - cy) * 0.9;
 	f->math.plot[3] = cy + (f->math.plot[3] - cy) * 0.9;
-	f->math.zoom += 20;
+	calc_zoom(f);
 	make_image(f);
 }
 
@@ -46,13 +46,13 @@ void	zoom_out(int x, int y, void *param)
 	double		cy;
 
 	f = (t_fractal *)param;
-	cx = x * (f->math.plot[1] - f->math.plot[0]) / f->win_x + f->math.plot[0];
-	cy = y * (f->math.plot[3] - f->math.plot[2]) / f->win_y + f->math.plot[2];
+	cx = x2cx(x, f);
+	cy = y2cy(y, f);
 	f->math.plot[0] = cx + (f->math.plot[0] - cx) * 1.1;
 	f->math.plot[1] = cx + (f->math.plot[1] - cx) * 1.1;
 	f->math.plot[2] = cy + (f->math.plot[2] - cy) * 1.1;
 	f->math.plot[3] = cy + (f->math.plot[3] - cy) * 1.1;
-	f->math.zoom -= 20;
+	calc_zoom(f);
 	make_image(f);
 }
 

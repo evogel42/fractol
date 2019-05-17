@@ -6,7 +6,7 @@
 /*   By: evogel <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/10 14:42:38 by evogel            #+#    #+#             */
-/*   Updated: 2019/05/16 17:34:32 by evogel           ###   ########.fr       */
+/*   Updated: 2019/05/17 11:56:21 by evogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,12 @@ static void	colorf_init(t_functions *fun)
 	fun->key[NK1_KEY] = &palette1;
 	fun->key[NK2_KEY] = &palette2;
 	fun->key[NK3_KEY] = &palette3;
+	fun->key[NK4_KEY] = &palette4;
+	fun->key[NK5_KEY] = &palette5;
+	fun->key[NK6_KEY] = &palette6;
+	fun->key[NK7_KEY] = &palette7;
+	fun->key[NK8_KEY] = &palette8;
+	fun->key[NK9_KEY] = &palette9;
 	fun->key[NKPL_KEY] = &shift_range;
 	fun->key[NKMN_KEY] = &shift_range;
 	fun->key[NKWC_KEY] = &color_start;
@@ -105,9 +111,9 @@ void		fun_tables_init(t_functions *fun, int type)
 	fun->key[PL_KEY] = &change_escape;
 	fun->key[MN_KEY] = &change_escape;
 	fun->key[SP_KEY] = &reset;
-	fun->key[TAB_KEY] = &presets;
 	if (type > K3_KEY && type != K9_KEY)
 	{
+		fun->key[TAB_KEY] = &presets;
 		fun->mouse[BUT3_KEY] = &julia_mode;
 		fun->key[W_KEY] = &julia_c_modif;
 		fun->key[A_KEY] = &julia_c_modif;

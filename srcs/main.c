@@ -6,7 +6,7 @@
 /*   By: evogel <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/01 14:56:41 by evogel            #+#    #+#             */
-/*   Updated: 2019/05/16 17:34:14 by evogel           ###   ########.fr       */
+/*   Updated: 2019/05/17 14:59:49 by evogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,8 @@ static int	get_type(char *av)
 static int	ft_usage(void)
 {
 	ft_putstr("usage: ./fractol [type]\n");
-	ft_putstr(TYPES);
+	ft_putstr("types: mandelbrot, mandel4, mandelverse, julia6, julia_sin, ");
+	ft_putstr("zubieta, thorn, buddhabrot\n");
 	return (0);
 }
 

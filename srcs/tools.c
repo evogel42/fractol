@@ -6,7 +6,7 @@
 /*   By: evogel <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/16 12:00:42 by evogel            #+#    #+#             */
-/*   Updated: 2019/05/16 17:31:20 by evogel           ###   ########.fr       */
+/*   Updated: 2019/05/17 16:06:02 by evogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,4 +42,13 @@ int		cy2y(double cy, t_fractal *f)
 
 	y = f->win_y * cy / (f->math.plot[3] - f->math.plot[2]) + f->win_y * 0.5;
 	return (y);
+}
+
+void	calc_zoom(t_fractal *f)
+{
+	static double ori = 0;
+
+	if (ori == 0)
+		ori = f->math.plot[1] - f->math.plot[0];
+	f->math.zoom = ori / (f->math.plot[1] - f->math.plot[0]);
 }

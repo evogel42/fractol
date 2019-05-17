@@ -1,25 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   colors1.c                                          :+:      :+:    :+:   */
+/*   colors2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: evogel <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/08 18:53:22 by evogel            #+#    #+#             */
-/*   Updated: 2019/05/17 14:40:07 by evogel           ###   ########.fr       */
+/*   Created: 2019/05/17 14:39:32 by evogel            #+#    #+#             */
+/*   Updated: 2019/05/17 14:39:54 by evogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-void	palette0(int i, void *param)
+void	palette5(int i, void *param)
 {
-	static int	pal[7] = {0, 0x270056, 0xD20358, 0xFFDD66, 0xC6FFC6, 0x3DECFF,
-		0x111166};
+	static int	pal[9] = {0xF7FCFD, 0xE0ECF4, 0xBFD3E6, 0x9EBCDA, 0x8C96C6,
+		0x8C6BB1, 0x88419D, 0x810F7C, 0xE28CD5};
 	t_fractal	*f;
 
 	f = (t_fractal *)param;
-	f->color.size = 7;
+	f->color.size = 9;
 	if (f->color.pal != NULL)
 		free(f->color.pal);
 	if (!(f->color.pal = (t_color *)malloc(sizeof(t_color) * f->color.size)))
@@ -33,9 +33,10 @@ void	palette0(int i, void *param)
 	make_image(f);
 }
 
-void	palette1(int i, void *param)
+void	palette6(int i, void *param)
 {
-	static int	pal[6] = {0, 0x351845, 0x900C3F, 0xFF9999, 0xFFFFFF, 0x952154};
+	static int	pal[6] = {0x85FFD0, 0x84D2FF, 0xE199FF, 0xFF8998, 0xFFD685,
+		0xFFF385};
 	t_fractal	*f;
 
 	f = (t_fractal *)param;
@@ -53,54 +54,57 @@ void	palette1(int i, void *param)
 	make_image(f);
 }
 
-void	palette2(int i, void *param)
+void	palette7(int i, void *param)
 {
-	static int	pal[7] = {0x1F0225, 0x332F91, 0x348AA7, 0x5DD39E, 0xFFEE99,
-		0xFF6971, 0x7B0337};
+	static int	pal[8] = {0x331436, 0x331436, 0x7A1745, 0xCB4F57, 0xEB9961,
+		0xFCF4B6, 0xFF9999, 0x7A1745};
+	t_fractal	*f;
+
+	f = (t_fractal *)param;
+	f->color.size = 8;
+	if (f->color.pal != NULL)
+		free(f->color.pal);
+	if (!(f->color.pal = (t_color *)malloc(sizeof(t_color) * f->color.size)))
+		return ;
+	i = 0;
+	while (i < f->color.size)
+	{
+		f->color.pal[i].i = pal[i];
+		++i;
+	}
+	make_image(f);
+}
+
+void	palette8(int i, void *param)
+{
+	static int	pal[15] = {0x081D58, 0x081D58, 0x253494, 0x225EA8, 0x1D91C0,
+		0x41B6C4, 0x7FCDBB, 0xC7E9B4, 0xD9E8B4, 0xEDF8B1, 0xF4FAC6, 0xFEFDDB,
+		0xFFFFD9, 0x1D91C0, 0x223494};
+	t_fractal	*f;
+
+	f = (t_fractal *)param;
+	f->color.size = 15;
+	if (f->color.pal != NULL)
+		free(f->color.pal);
+	if (!(f->color.pal = (t_color *)malloc(sizeof(t_color) * f->color.size)))
+		return ;
+	i = 0;
+	while (i < f->color.size)
+	{
+		f->color.pal[i].i = pal[i];
+		++i;
+	}
+	make_image(f);
+}
+
+void	palette9(int i, void *param)
+{
+	static int	pal[7] = {0x332F91, 0x78478B, 0xB65070, 0xF08664, 0xFCCB87,
+		0xDBE6A2, 0x88BFB1};
 	t_fractal	*f;
 
 	f = (t_fractal *)param;
 	f->color.size = 7;
-	if (f->color.pal != NULL)
-		free(f->color.pal);
-	if (!(f->color.pal = (t_color *)malloc(sizeof(t_color) * f->color.size)))
-		return ;
-	i = 0;
-	while (i < f->color.size)
-	{
-		f->color.pal[i].i = pal[i];
-		++i;
-	}
-	make_image(f);
-}
-
-void	palette3(int i, void *param)
-{
-	static int	pal[4] = {0xE0FFFF, 0x56A7FE, 0x550044, 0xB93145};
-	t_fractal	*f;
-
-	f = (t_fractal *)param;
-	f->color.size = 4;
-	if (f->color.pal != NULL)
-		free(f->color.pal);
-	if (!(f->color.pal = (t_color *)malloc(sizeof(t_color) * f->color.size)))
-		return ;
-	i = 0;
-	while (i < f->color.size)
-	{
-		f->color.pal[i].i = pal[i];
-		++i;
-	}
-	make_image(f);
-}
-
-void	palette4(int i, void *param)
-{
-	static int	pal[5] = {0x000038, 0x4CC0FE, 0xFFFFFF, 0xFFE460, 0x920331};
-	t_fractal	*f;
-
-	f = (t_fractal *)param;
-	f->color.size = 5;
 	if (f->color.pal != NULL)
 		free(f->color.pal);
 	if (!(f->color.pal = (t_color *)malloc(sizeof(t_color) * f->color.size)))

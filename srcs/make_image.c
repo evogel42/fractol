@@ -6,7 +6,7 @@
 /*   By: evogel <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/08 13:33:24 by evogel            #+#    #+#             */
-/*   Updated: 2019/05/16 17:32:19 by evogel           ###   ########.fr       */
+/*   Updated: 2019/05/17 14:28:33 by evogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,14 +60,12 @@ static void	*section(void *param)
 	int			x_min;
 	int			x_max;
 	t_fractal	*f;
-	t_buddha	*b;
 
-	b = NULL;
 	f = (t_fractal *)param;
-	if (i >= THREADS)
-		i = 0;
 	x_min = (f->win_x / THREADS) * i;
 	x_max = (f->win_x / THREADS) * ++i;
+	if (i >= THREADS)
+		i = 0;
 	maths(f, x_min, x_max);
 	return (NULL);
 }

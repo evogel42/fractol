@@ -6,7 +6,7 @@
 #    By: evogel <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/07 16:47:44 by evogel            #+#    #+#              #
-#    Updated: 2019/05/16 12:40:19 by evogel           ###   ########.fr        #
+#    Updated: 2019/05/17 14:40:19 by evogel           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,7 @@ SRCS = main.c \
 	   event_funs3.c\
 	   event_funs4.c\
 	   colors1.c \
+	   colors2.c \
 	   make_image.c \
 	   write_ppm.c \
 	   mandelbrot.c \
