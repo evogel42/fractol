@@ -6,7 +6,7 @@
 /*   By: evogel <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/08 13:33:24 by evogel            #+#    #+#             */
-/*   Updated: 2019/05/17 14:28:33 by evogel           ###   ########.fr       */
+/*   Updated: 2019/05/18 18:02:41 by evogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,10 +76,7 @@ void		make_image(t_fractal *f)
 	t_mlx		*mlx;
 	int			i;
 
-	mlx = &f->mlx;
-	if (f->type == K9_KEY)
-		buddhabrot(f);
-	else
+	if (f->type != K9_KEY)
 	{
 		i = 0;
 		while (i < THREADS)
@@ -90,9 +87,12 @@ void		make_image(t_fractal *f)
 			if (pthread_join(tid[i++], NULL) != 0)
 				exit(-1);
 	}
+	else
+		buddhabrot(f);
+	mlx = &f->mlx;
 	mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr, mlx->img_ptr, 0, 0);
 	if (f->info == 1)
-		make_controls_text(f, f->mlx.mlx_ptr, f->mlx.win_ptr);
+		make_controls_text(f, mlx->mlx_ptr, mlx->win_ptr);
 	if (f->info == 2)
-		make_info_text1(f, f->mlx.mlx_ptr, f->mlx.win_ptr);
+		make_info_text1(f, mlx->mlx_ptr, mlx->win_ptr);
 }

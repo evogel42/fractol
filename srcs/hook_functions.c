@@ -6,7 +6,7 @@
 /*   By: evogel <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:13:13 by evogel            #+#    #+#             */
-/*   Updated: 2019/05/16 13:31:01 by evogel           ###   ########.fr       */
+/*   Updated: 2019/05/18 17:58:33 by evogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,10 +61,8 @@ int		do_move(int x, int y, void *param)
 	f = (t_fractal *)param;
 	if (f->type >= 1 && f->math.mode == 1)
 	{
-		f->math.c[0] = x * ((f->math.plot[1] - f->math.plot[0]) / f->win_x)
-			+ f->math.plot[0];
-		f->math.c[1] = y * ((f->math.plot[3] - f->math.plot[2]) / f->win_y)
-			+ f->math.plot[2];
+		f->math.c[0] = x2cx(x, f);
+		f->math.c[1] = y2cy(y, f);
 		make_image(f);
 	}
 	return (0);

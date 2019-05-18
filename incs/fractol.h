@@ -6,7 +6,7 @@
 /*   By: brichard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 11:13:35 by brichard          #+#    #+#             */
-/*   Updated: 2019/05/17 15:25:24 by evogel           ###   ########.fr       */
+/*   Updated: 2019/05/18 15:58:04 by evogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include "mlx.h"
 
 /*
+** void end(void)__attribute__((destructor));
 ** Authorised includes
 */
 

@@ -6,7 +6,7 @@
 #    By: evogel <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/07 16:47:44 by evogel            #+#    #+#              #
-#    Updated: 2019/05/17 14:40:19 by evogel           ###   ########.fr        #
+#    Updated: 2019/05/18 15:01:54 by evogel           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,9 +58,10 @@ D_OBJS = $(addprefix $(P_OBJS)/, $(OBJS))
 # LIBRARIES #
 #############
 
-LIBS = libft.a
+LIBS = libft.a \
+	   libmlx.a
 
-D_LIBS = $(basename $(LIBS))
+D_LIBS = $(foreach LIB, $(LIBS), $(basename $(LIB))/$(LIB))
 
 ############
 # COMPILER #
@@ -72,9 +73,9 @@ CFLAGS = -Wall -Wextra -Werror
 
 MLXFLAGS = -framework OpenGL -framework AppKit
 
-I_FLAGS = $(foreach LIB, $(D_LIBS),-I$(LIB)) -I$(INC)
+I_FLAGS = $(foreach LIB, $(LIBS),-I$(basename $(LIB))) -I$(INC)
 
-L_FLAGS = $(foreach LIB, $(D_LIBS),-L$(LIB) -l$(LIB:lib%=%)) -lmlx -lm
+L_FLAGS = $(foreach LIB, $(LIBS),-L$(basename $(LIB)) -l$(LIB:lib%.a=%)) -lm
 
 ################
 # COMPILE TEST #
@@ -114,22 +115,22 @@ COM_STRING   = "Compiling"
 
 all: $(NAME)
 
-$(NAME): $(addprefix $(basename $(LIBS))/, $(LIBS)) $(P_OBJS) $(D_OBJS)
+$(NAME): $(D_LIBS) $(P_OBJS) $(D_OBJS)
 	@$(call run_and_test, $(CC) $(CFLAGS) $(MLXFLAGS) -o $(NAME) $(D_OBJS) $(L_FLAGS))
 
 $(P_OBJS)/%.o: $(P_SRCS)/%.c $(INC)
 	@$(call run_and_test, $(CC) $(CFLAGS) $(I_FLAGS) -o $@ -c $<)
 
 $(P_OBJS):
-	@mkdir -p $(P_OBJS)
+	@$(call run_and_test, mkdir -p $(P_OBJS))
 
-$(addprefix $(basename $(LIBS))/, $(LIBS)):
+$(D_LIBS):
 	@$(call run_and_test, make -C $(dir $@))
 
 clean:
-	@$(call run_and_test, rm -rf $(P_OBJS) $(foreach LIB, $(D_LIBS),&& make -C $(LIB) clean))
+	@$(call run_and_test, rm -rf $(P_OBJS) $(foreach LIB, $(LIBS),&& make -C $(basename $(LIB)) clean))
 
 fclean: clean
-	@$(call run_and_test, rm -f $(NAME) $(foreach LIB, $(D_LIBS),&& make -C $(LIB) fclean))
+	@$(call run_and_test, rm -f $(NAME) $(foreach LIB, $(LIBS),&& make -C $(basename $(LIB)) fclean))
 
 re: fclean all

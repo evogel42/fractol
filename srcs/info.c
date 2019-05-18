@@ -6,7 +6,7 @@
 /*   By: evogel <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 15:23:05 by evogel            #+#    #+#             */
-/*   Updated: 2019/05/18 13:51:59 by evogel           ###   ########.fr       */
+/*   Updated: 2019/05/18 17:59:10 by evogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static void	make_info_bg(t_fractal *f, int width, int height, int fill)
 	mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr, mlx->img_ptr, 0, 0);
 }
 
-int			string_put(t_fractal *f, int x, int y, int param)
+static int	string_put(t_fractal *f, int x, int y, int param)
 {
 	char	*tmp;
 	int		len;
@@ -52,7 +52,7 @@ int			string_put(t_fractal *f, int x, int y, int param)
 	return (len);
 }
 
-void		make_info_text2(t_fractal *f, int i, void *mlx, void *win)
+static void	make_info_text2(t_fractal *f, int i, void *mlx, void *win)
 {
 	char	*tmp;
 	int		len;
