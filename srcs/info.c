@@ -6,7 +6,7 @@
 /*   By: evogel <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 15:23:05 by evogel            #+#    #+#             */
-/*   Updated: 2019/05/17 15:38:03 by evogel           ###   ########.fr       */
+/*   Updated: 2019/05/18 13:51:59 by evogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,27 +40,29 @@ static void	make_info_bg(t_fractal *f, int width, int height, int fill)
 	mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr, mlx->img_ptr, 0, 0);
 }
 
-void		string_put(t_fractal *f, int x, int y, int param)
+int			string_put(t_fractal *f, int x, int y, int param)
 {
-	char *tmp;
+	char	*tmp;
+	int		len;
 
 	tmp = ft_itoa(param);
+	len = ft_strlen(tmp);
 	mlx_string_put(f->mlx.mlx_ptr, f->mlx.win_ptr, x, y, WHITE, tmp);
 	free(tmp);
+	return (len);
 }
 
 void		make_info_text2(t_fractal *f, int i, void *mlx, void *win)
 {
-	char *tmp;
+	char	*tmp;
+	int		len;
 
-	string_put(f, 150, i, f->math.escape);
 	mlx_string_put(mlx, win, 20, (i += 30), WHITE, "Color range:");
 	string_put(f, 150, i, f->color.range);
 	mlx_string_put(mlx, win, 20, (i += 30), WHITE, "Resolution:");
-	tmp = ft_strjoin(ft_itoa(f->win_x), "x");
-	mlx_string_put(mlx, win, 150, i, WHITE, tmp);
-	free(tmp);
-	string_put(f, 200, i, f->win_y);
+	len = string_put(f, 150, i, f->win_x);
+	mlx_string_put(mlx, win, (len = 150 + len * 10), i, WHITE, "x");
+	string_put(f, len + 10, i, f->win_y);
 	if (f->type > K3_KEY && f->type != K9_KEY)
 	{
 		mlx_string_put(mlx, win, 20, (i += 50), WHITE, "Julia type parameter");
@@ -84,7 +86,6 @@ void		make_info_text1(t_fractal *f, void *mlx, void *win)
 	static int	nums[8] = {K1_KEY, K2_KEY, K3_KEY, K4_KEY, K5_KEY, K6_KEY,
 		K7_KEY, K8_KEY};
 	int			i;
-	char		*tmp;
 
 	make_info_bg(f, 270, 330, 0xAA000000);
 	i = 0;
@@ -94,12 +95,12 @@ void		make_info_text1(t_fractal *f, void *mlx, void *win)
 	mlx_string_put(mlx, win, 150, 10, WHITE, names[i]);
 	i = 10;
 	mlx_string_put(mlx, win, 20, (i += 30), WHITE, "Zoom:");
-	tmp = ft_strjoin("x", ft_itoa(f->math.zoom));
-	mlx_string_put(mlx, win, 150, i, WHITE, tmp);
-	free(tmp);
+	mlx_string_put(mlx, win, 150, i, WHITE, "x");
+	string_put(f, 160, i, f->math.zoom);
 	mlx_string_put(mlx, win, 20, (i += 30), WHITE, "Max iter:");
 	string_put(f, 150, i, f->math.iter);
 	mlx_string_put(mlx, win, 20, (i += 30), WHITE, "Escape val:");
+	string_put(f, 150, i, f->math.escape);
 	make_info_text2(f, i, mlx, win);
 }
 
