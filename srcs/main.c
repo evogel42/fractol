@@ -6,7 +6,7 @@
 /*   By: evogel <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/01 14:56:41 by evogel            #+#    #+#             */
-/*   Updated: 2019/05/18 15:23:33 by evogel           ###   ########.fr       */
+/*   Updated: 2019/05/20 12:06:47 by evogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,10 +75,10 @@ int			main(int ac, char **av)
 	return (0);
 }
 /*
-** #include <stdio.h>
-** void		end(void)
-** {
-** 		printf("\nIN END\n");
-**		while (1);
-** }
+**#include <stdio.h>
+**void		end(void)
+**{
+**	printf("\nIN END\n");
+**	while (1);
+**}
 */

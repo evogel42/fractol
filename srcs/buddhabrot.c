@@ -6,7 +6,7 @@
 /*   By: evogel <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/16 17:38:32 by evogel            #+#    #+#             */
-/*   Updated: 2019/05/16 17:47:12 by evogel           ###   ########.fr       */
+/*   Updated: 2019/05/20 11:57:37 by evogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,14 +77,14 @@ void		buddhabrot(t_fractal *f)
 	int				y;
 	float			res;
 
-	if (b.size != f->win_x * f->win_y || f->math.iter == MAX_ITER)
+	if (b.size != f->win_x * f->win_y)
 	{
 		b.size = f->win_x * f->win_y;
 		b.max_expo = 0;
 		if (b.expo != NULL)
 			free(b.expo);
 		if (!(b.expo = (int *)ft_memalloc(sizeof(int) * b.size)))
-			exit(0);
+			exit(-1);
 	}
 	while (b.max_expo < f->math.iter && (res = f->math.iter))
 	{

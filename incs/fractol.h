@@ -6,7 +6,7 @@
 /*   By: brichard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 11:13:35 by brichard          #+#    #+#             */
-/*   Updated: 2019/05/18 15:58:04 by evogel           ###   ########.fr       */
+/*   Updated: 2019/05/20 12:07:05 by evogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,10 @@
 # include "mlx.h"
 
 /*
-** void end(void)__attribute__((destructor));
+**void end(void)__attribute__((destructor));
+*/
+
+/*
 ** Authorised includes
 */
 
@@ -34,7 +37,7 @@
 # include <pthread.h>
 
 # define RATIO 16 / 9
-# define WIN_Y 810
+# define WIN_Y 720
 # define WIN_X (int)(WIN_Y * RATIO)
 # define THREADS 8
 # define MAX_ITER 60

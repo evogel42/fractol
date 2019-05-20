@@ -6,7 +6,7 @@
 /*   By: evogel <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/08 13:33:24 by evogel            #+#    #+#             */
-/*   Updated: 2019/05/18 18:02:41 by evogel           ###   ########.fr       */
+/*   Updated: 2019/05/20 11:50:30 by evogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int			get_color(float res, t_palette *c)
 	return (color.i);
 }
 
-static void	maths(t_fractal *f, int x_min, int x_max)
+static void	maths(t_fractal *f, int lims[2])
 {
 	int		x;
 	int		y;
@@ -40,8 +40,8 @@ static void	maths(t_fractal *f, int x_min, int x_max)
 	y = 0;
 	while (y < f->win_y)
 	{
-		x = x_min;
-		while (x < x_max)
+		x = lims[0];
+		while (x < lims[1])
 		{
 			res = f->fun.fractal[f->type](x2cx(x, f), y2cy(y, f), &f->math);
 			if ((int)res == f->math.iter)
@@ -57,16 +57,15 @@ static void	maths(t_fractal *f, int x_min, int x_max)
 static void	*section(void *param)
 {
 	static int	i = 0;
-	int			x_min;
-	int			x_max;
+	int			lims[2];
 	t_fractal	*f;
 
 	f = (t_fractal *)param;
-	x_min = (f->win_x / THREADS) * i;
-	x_max = (f->win_x / THREADS) * ++i;
+	lims[0] = (f->win_x / THREADS) * i;
+	lims[1] = (f->win_x / THREADS) * ++i;
 	if (i >= THREADS)
 		i = 0;
-	maths(f, x_min, x_max);
+	maths(f, lims);
 	return (NULL);
 }
 
