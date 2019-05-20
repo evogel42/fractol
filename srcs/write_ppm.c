@@ -6,7 +6,7 @@
 /*   By: evogel <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/22 12:10:35 by evogel            #+#    #+#             */
-/*   Updated: 2019/05/12 16:22:48 by evogel           ###   ########.fr       */
+/*   Updated: 2019/05/20 14:31:45 by evogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,7 @@ void		write_ppm(int key, void *param)
 	f = (t_fractal *)param;
 	while (n < 100)
 	{
-		filename = make_filename(n);
-		if (filename == NULL)
+		if (!(filename = make_filename(n)))
 			return (ft_putendl("Error creating file"));
 		if ((key = open(filename, O_CREAT | O_WRONLY | O_EXCL, 0666)) != -1)
 			break ;
@@ -70,9 +69,11 @@ void		write_ppm(int key, void *param)
 	if (n == 100)
 		return (ft_putendl("Screenshot limit reached"));
 	data_fill_ppm(key, f->mlx.data, f->win_x, f->win_y);
-	tmp = ft_strjoin(filename, " was successfully created");
-	mlx_string_put(f->mlx.mlx_ptr, f->mlx.win_ptr, 10, 10, 0xFFFFFF, tmp);
+	if ((tmp = ft_strjoin(filename, " was successfully created")))
+	{
+		mlx_string_put(f->mlx.mlx_ptr, f->mlx.win_ptr, 10, 10, 0xFFFFFF, tmp);
+		free(tmp);
+	}
 	free(filename);
-	free(tmp);
 	close(key);
 }

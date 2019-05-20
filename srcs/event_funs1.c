@@ -6,7 +6,7 @@
 /*   By: evogel <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 16:46:50 by evogel            #+#    #+#             */
-/*   Updated: 2019/04/26 13:31:26 by evogel           ###   ########.fr       */
+/*   Updated: 2019/05/20 14:05:21 by evogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,12 @@ void	pan_image(int key, void *param)
 		f->math.plot[0] += 0.05 * (f->math.plot[1] - f->math.plot[0]);
 		f->math.plot[1] += 0.05 * (f->math.plot[1] - f->math.plot[0]);
 	}
-	else if (key == DOWN_KEY)
+	else if (key == UP_KEY)
 	{
 		f->math.plot[2] -= 0.05 * (f->math.plot[3] - f->math.plot[2]);
 		f->math.plot[3] -= 0.05 * (f->math.plot[3] - f->math.plot[2]);
 	}
-	else if (key == UP_KEY)
+	else if (key == DOWN_KEY)
 	{
 		f->math.plot[2] += 0.05 * (f->math.plot[3] - f->math.plot[2]);
 		f->math.plot[3] += 0.05 * (f->math.plot[3] - f->math.plot[2]);
@@ -42,13 +42,18 @@ void	pan_image(int key, void *param)
 
 void	change_iter(int key, void *param)
 {
-	t_fractal *f;
+	t_fractal	*f;
+	int			add;
 
 	f = (t_fractal *)param;
+	if ((add = f->color.range / f->color.size) == 0)
+		add = 1;
 	if (key == PT_KEY)
-		f->math.iter += f->color.range / f->color.size;
+		f->math.iter += add;
 	else if (key == CM_KEY)
-		f->math.iter -= f->color.range / f->color.size;
+		f->math.iter -= add;
+	if (f->math.iter < 0)
+		f->math.iter = 0;
 	make_image(f);
 }
 

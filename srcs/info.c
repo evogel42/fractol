@@ -6,7 +6,7 @@
 /*   By: evogel <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 15:23:05 by evogel            #+#    #+#             */
-/*   Updated: 2019/05/18 17:59:10 by evogel           ###   ########.fr       */
+/*   Updated: 2019/05/20 14:26:17 by evogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,8 @@ static int	string_put(t_fractal *f, int x, int y, int param)
 	char	*tmp;
 	int		len;
 
-	tmp = ft_itoa(param);
+	if (!(tmp = ft_itoa(param)))
+		return (0);
 	len = ft_strlen(tmp);
 	mlx_string_put(f->mlx.mlx_ptr, f->mlx.win_ptr, x, y, WHITE, tmp);
 	free(tmp);
@@ -57,8 +58,6 @@ static void	make_info_text2(t_fractal *f, int i, void *mlx, void *win)
 	char	*tmp;
 	int		len;
 
-	mlx_string_put(mlx, win, 20, (i += 30), WHITE, "Color range:");
-	string_put(f, 150, i, f->color.range);
 	mlx_string_put(mlx, win, 20, (i += 30), WHITE, "Resolution:");
 	len = string_put(f, 150, i, f->win_x);
 	mlx_string_put(mlx, win, (len = 150 + len * 10), i, WHITE, "x");
@@ -69,13 +68,17 @@ static void	make_info_text2(t_fractal *f, int i, void *mlx, void *win)
 		mlx_string_put(mlx, win, 20, (i += 20), WHITE,
 				"------------------------");
 		mlx_string_put(mlx, win, 40, (i += 30), WHITE, "x =");
-		tmp = ft_flotoa(f->math.c[0], 6);
-		mlx_string_put(mlx, win, 80, i, WHITE, tmp);
-		free(tmp);
+		if ((tmp = ft_flotoa(f->math.c[0], 6)))
+		{
+			mlx_string_put(mlx, win, 80, i, WHITE, tmp);
+			free(tmp);
+		}
 		mlx_string_put(mlx, win, 40, (i += 30), WHITE, "y =");
-		tmp = ft_flotoa(f->math.c[1], 6);
-		mlx_string_put(mlx, win, 80, i, WHITE, tmp);
-		free(tmp);
+		if ((tmp = ft_flotoa(f->math.c[1], 6)))
+		{
+			mlx_string_put(mlx, win, 80, i, WHITE, tmp);
+			free(tmp);
+		}
 	}
 }
 
@@ -101,6 +104,8 @@ void		make_info_text1(t_fractal *f, void *mlx, void *win)
 	string_put(f, 150, i, f->math.iter);
 	mlx_string_put(mlx, win, 20, (i += 30), WHITE, "Escape val:");
 	string_put(f, 150, i, f->math.escape);
+	mlx_string_put(mlx, win, 20, (i += 30), WHITE, "Color range:");
+	string_put(f, 150, i, f->color.range);
 	make_info_text2(f, i, mlx, win);
 }
 
@@ -109,8 +114,7 @@ void		make_controls_text(t_fractal *f, void *mlx, void *win)
 	int	y;
 
 	make_info_bg(f, 350, f->win_y, 0x60000000);
-	y = 10;
-	mlx_string_put(mlx, win, 20, y, WHITE, C1);
+	mlx_string_put(mlx, win, 20, (y = 10), WHITE, C1);
 	mlx_string_put(mlx, win, 20, (y += 20), WHITE, C2);
 	mlx_string_put(mlx, win, 20, (y += 30), WHITE, C3);
 	mlx_string_put(mlx, win, 20, (y += 30), WHITE, C4);
@@ -126,9 +130,10 @@ void		make_controls_text(t_fractal *f, void *mlx, void *win)
 	mlx_string_put(mlx, win, 20, (y += 30), WHITE, C14);
 	mlx_string_put(mlx, win, 20, (y += 30), WHITE, C15);
 	mlx_string_put(mlx, win, 20, (y += 30), WHITE, C16);
-	mlx_string_put(mlx, win, 20, (y += 60), WHITE, C17);
-	mlx_string_put(mlx, win, 20, (y += 20), WHITE, C18);
-	mlx_string_put(mlx, win, 20, (y += 30), WHITE, C19);
+	mlx_string_put(mlx, win, 20, (y += 30), WHITE, C17);
+	mlx_string_put(mlx, win, 20, (y += 60), WHITE, C18);
+	mlx_string_put(mlx, win, 20, (y += 20), WHITE, C19);
 	mlx_string_put(mlx, win, 20, (y += 30), WHITE, C20);
 	mlx_string_put(mlx, win, 20, (y += 30), WHITE, C21);
+	mlx_string_put(mlx, win, 20, (y += 30), WHITE, C22);
 }

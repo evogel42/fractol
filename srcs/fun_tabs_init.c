@@ -6,32 +6,11 @@
 /*   By: evogel <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/10 14:42:38 by evogel            #+#    #+#             */
-/*   Updated: 2019/05/17 11:56:21 by evogel           ###   ########.fr       */
+/*   Updated: 2019/05/20 14:33:28 by evogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
-
-static void	null_init(t_functions *fun)
-{
-	int	i;
-
-	i = 0;
-	while (i < KEY_MAX)
-		fun->key[i++] = NULL;
-	i = 0;
-	while (i < MOUSE_MAX)
-		fun->mouse[i++] = NULL;
-	i = 0;
-	while (i < K0_KEY)
-		fun->fractal[i++] = NULL;
-	i = 0;
-	while (i < K0_KEY)
-	{
-		fun->fset[0][i++] = NULL;
-		fun->fset[1][i++] = NULL;
-	}
-}
 
 static void	fract_init(t_functions *fun)
 {
@@ -98,7 +77,7 @@ static void	other_init(t_functions *fun)
 
 void		fun_tables_init(t_functions *fun, int type)
 {
-	null_init(fun);
+	ft_bzero((void *)fun, sizeof(t_functions));
 	fract_init(fun);
 	colorf_init(fun);
 	other_init(fun);

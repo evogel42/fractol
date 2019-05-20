@@ -6,7 +6,7 @@
 /*   By: brichard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 11:13:35 by brichard          #+#    #+#             */
-/*   Updated: 2019/05/20 12:07:05 by evogel           ###   ########.fr       */
+/*   Updated: 2019/05/20 14:37:29 by evogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,6 @@
 # include "libft.h"
 # include "mlx_codes.h"
 # include "mlx.h"
-
-/*
-**void end(void)__attribute__((destructor));
-*/
 
 /*
 ** Authorised includes
@@ -49,20 +45,21 @@
 # define C5 "Wheel click : Lock/unlock param"
 # define C6 "Keyboard Controls"
 # define C7 "--------------------------------"
-# define C8 "#1-9   : Change fractal"
-# define C9 "Arrows : Pan image"
-# define C10 "WASD   : Increment param"
-# define C11 "< >    : Vary max iterations"
-# define C12 "- +    : Vary escape value"
-# define C13 "Tab    : Example param values"
-# define C14 "I      : Toggle info"
-# define C15 "Space  : Reset"
-# define C16 "F15    : Save screenshot"
-# define C17 "Numpad Controls"
-# define C18 "--------------------------------"
-# define C19 "#0-9 : Change color palette"
-# define C20 "- +  : Change color range"
-# define C21 "*    : Change palette order"
+# define C8 "#1-9     : Change fractal"
+# define C9 "Arrows   : Pan image"
+# define C10 "WASD     : Increment param"
+# define C11 "< >      : Vary max iterations"
+# define C12 "- +      : Vary escape value"
+# define C13 "Tab      : Example param values"
+# define C14 "I        : Toggle info"
+# define C15 "Space    : Reset"
+# define C16 "F15      : Save screenshot"
+# define C17 "Pg Up/Dn : change window size"
+# define C18 "Numpad Controls"
+# define C19 "--------------------------------"
+# define C20 "#0-9 : Change color palette"
+# define C21 "- +  : Change color range"
+# define C22 "*    : Change palette order"
 # define WHITE 0xFFFFFF
 
 typedef struct	s_buddha

@@ -6,7 +6,7 @@
 /*   By: evogel <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/17 14:39:32 by evogel            #+#    #+#             */
-/*   Updated: 2019/05/17 14:39:54 by evogel           ###   ########.fr       */
+/*   Updated: 2019/05/20 14:30:09 by evogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	palette5(int i, void *param)
 	if (f->color.pal != NULL)
 		free(f->color.pal);
 	if (!(f->color.pal = (t_color *)malloc(sizeof(t_color) * f->color.size)))
-		return ;
+		exit(-1);
 	i = 0;
 	while (i < f->color.size)
 	{
@@ -44,7 +44,7 @@ void	palette6(int i, void *param)
 	if (f->color.pal != NULL)
 		free(f->color.pal);
 	if (!(f->color.pal = (t_color *)malloc(sizeof(t_color) * f->color.size)))
-		return ;
+		exit(-1);
 	i = 0;
 	while (i < f->color.size)
 	{
@@ -65,7 +65,7 @@ void	palette7(int i, void *param)
 	if (f->color.pal != NULL)
 		free(f->color.pal);
 	if (!(f->color.pal = (t_color *)malloc(sizeof(t_color) * f->color.size)))
-		return ;
+		exit(-1);
 	i = 0;
 	while (i < f->color.size)
 	{
@@ -87,7 +87,7 @@ void	palette8(int i, void *param)
 	if (f->color.pal != NULL)
 		free(f->color.pal);
 	if (!(f->color.pal = (t_color *)malloc(sizeof(t_color) * f->color.size)))
-		return ;
+		exit(-1);
 	i = 0;
 	while (i < f->color.size)
 	{
@@ -108,7 +108,7 @@ void	palette9(int i, void *param)
 	if (f->color.pal != NULL)
 		free(f->color.pal);
 	if (!(f->color.pal = (t_color *)malloc(sizeof(t_color) * f->color.size)))
-		return ;
+		exit(-1);
 	i = 0;
 	while (i < f->color.size)
 	{
