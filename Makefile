@@ -59,7 +59,7 @@ D_OBJS = $(addprefix $(P_OBJS)/, $(OBJS))
 #############
 
 LIBS = libft.a \
-	   libmlx.a
+	   libmlx_Linux.a
 
 D_LIBS = $(foreach LIB, $(LIBS), $(basename $(LIB))/$(LIB))
 
@@ -71,11 +71,11 @@ CC = gcc
 
 CFLAGS = -Wall -Wextra -Werror
 
-MLXFLAGS = -framework OpenGL -framework AppKit
+MLXFLAGS = -L/usr/X11 -L/usr/X11/lib /usr/X11/lib/libmlx_Linux.a -lXext -lX11
 
 I_FLAGS = $(foreach LIB, $(LIBS),-I$(basename $(LIB))) -I$(INC)
 
-L_FLAGS = $(foreach LIB, $(LIBS),-L$(basename $(LIB)) -l$(LIB:lib%.a=%)) -lm
+L_FLAGS = $(foreach LIB, $(LIBS),-L$(basename $(LIB)) -l$(LIB:lib%.a=%)) -lm -lpthread
 
 ################
 # COMPILE TEST #
@@ -116,7 +116,7 @@ COM_STRING   = "Compiling"
 all: $(NAME)
 
 $(NAME): $(D_LIBS) $(P_OBJS) $(D_OBJS)
-	@$(call run_and_test, $(CC) $(CFLAGS) $(MLXFLAGS) -o $(NAME) $(D_OBJS) $(L_FLAGS))
+	$(CC) $(CFLAGS) -o $(NAME) $(D_OBJS) $(L_FLAGS) $(MLXFLAGS)
 
 $(P_OBJS)/%.o: $(P_SRCS)/%.c $(INC)
 	@$(call run_and_test, $(CC) $(CFLAGS) $(I_FLAGS) -o $@ -c $<)

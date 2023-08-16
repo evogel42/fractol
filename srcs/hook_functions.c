@@ -17,9 +17,10 @@ int		do_close1(int keycode, void *param)
 	t_fractal *f;
 
 	f = (t_fractal *)param;
-	if (keycode == ESC_KEY)
+	if (keycode == XK_Escape)
 	{
 		mlx_destroy_window(f->mlx.mlx_ptr, f->mlx.win_ptr);
+		mlx_destroy_display(f->mlx.mlx_ptr);
 		exit(0);
 	}
 	return (0);
@@ -31,6 +32,7 @@ int		do_close2(void *param)
 
 	f = (t_fractal *)param;
 	mlx_destroy_window(f->mlx.mlx_ptr, f->mlx.win_ptr);
+	mlx_destroy_display(f->mlx.mlx_ptr);
 	exit(0);
 }
 

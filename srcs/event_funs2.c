@@ -71,13 +71,13 @@ void	julia_c_modif(int key, void *param)
 	t_fractal *f;
 
 	f = (t_fractal *)param;
-	if (key == W_KEY)
+	if (key == XK_w)
 		f->math.c[1] += 0.001 * (f->math.plot[3] - f->math.plot[2]);
-	else if (key == A_KEY)
+	else if (key == XK_a)
 		f->math.c[0] -= 0.001 * (f->math.plot[1] - f->math.plot[0]);
-	else if (key == S_KEY)
+	else if (key == XK_s)
 		f->math.c[1] -= 0.001 * (f->math.plot[3] - f->math.plot[2]);
-	else if (key == D_KEY)
+	else if (key == XK_d)
 		f->math.c[0] += 0.001 * (f->math.plot[1] - f->math.plot[0]);
 	make_image(f);
 }

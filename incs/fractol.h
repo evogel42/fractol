@@ -14,8 +14,9 @@
 # define FRACTOL_H
 
 # include "libft.h"
-# include "mlx_codes.h"
-# include "mlx.h"
+# include <mlx.h>
+# include <X11/keysym.h>
+# include <X11/X.h>
 
 /*
 ** Authorised includes
@@ -25,6 +26,7 @@
 # include <fcntl.h>
 # include <unistd.h>
 # include <math.h>
+# include <stdio.h>
 
 /*
 ** Bonus includes
@@ -38,6 +40,9 @@
 # define THREADS 8
 # define MAX_ITER 60
 
+# define KEY_MAX 65500
+# define MOUSE_MAX 8
+
 # define C1	"Mouse Controls"
 # define C2 "--------------------------------"
 # define C3 "Scrollwheel : Zoom in/out"
@@ -48,12 +53,12 @@
 # define C8 "#1-9     : Change fractal"
 # define C9 "Arrows   : Pan image"
 # define C10 "WASD     : Increment param"
-# define C11 "< >      : Vary max iterations"
+# define C11 "[ ]      : Vary max iterations"
 # define C12 "- +      : Vary escape value"
 # define C13 "Tab      : Example param values"
 # define C14 "I        : Toggle info"
 # define C15 "Space    : Reset"
-# define C16 "F15      : Save screenshot"
+# define C16 "Home     : Save screenshot"
 # define C17 "Pg Up/Dn : change window size"
 # define C18 "Numpad Controls"
 # define C19 "--------------------------------"
@@ -61,6 +66,17 @@
 # define C21 "- +  : Change color range"
 # define C22 "*    : Change palette order"
 # define WHITE 0xFFFFFF
+
+# define KP_0 65438
+# define KP_1 65436
+# define KP_2 65433
+# define KP_3 65435
+# define KP_4 65430
+# define KP_5 65437
+# define KP_6 65432
+# define KP_7 65429
+# define KP_8 65431
+# define KP_9 65434
 
 typedef struct	s_buddha
 {
@@ -109,8 +125,8 @@ typedef	struct	s_functions
 {
 	void	(*key[KEY_MAX])(int, void *);
 	void	(*mouse[MOUSE_MAX])(int, int, void *);
-	float	(*fractal[K0_KEY])(double, double, t_math *);
-	void	(*fset[2][K0_KEY])(t_math *);
+	float	(*fractal[XK_0])(double, double, t_math *);
+	void	(*fset[2][XK_0])(t_math *);
 }				t_functions;
 
 typedef	struct	s_fractal

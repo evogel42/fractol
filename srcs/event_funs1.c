@@ -17,22 +17,22 @@ void	pan_image(int key, void *param)
 	t_fractal *f;
 
 	f = (t_fractal *)param;
-	if (key == LEFT_KEY)
+	if (key == XK_Left)
 	{
 		f->math.plot[0] -= 0.05 * (f->math.plot[1] - f->math.plot[0]);
 		f->math.plot[1] -= 0.05 * (f->math.plot[1] - f->math.plot[0]);
 	}
-	else if (key == RIGHT_KEY)
+	else if (key == XK_Right)
 	{
 		f->math.plot[0] += 0.05 * (f->math.plot[1] - f->math.plot[0]);
 		f->math.plot[1] += 0.05 * (f->math.plot[1] - f->math.plot[0]);
 	}
-	else if (key == UP_KEY)
+	else if (key == XK_Up)
 	{
 		f->math.plot[2] -= 0.05 * (f->math.plot[3] - f->math.plot[2]);
 		f->math.plot[3] -= 0.05 * (f->math.plot[3] - f->math.plot[2]);
 	}
-	else if (key == DOWN_KEY)
+	else if (key == XK_Down)
 	{
 		f->math.plot[2] += 0.05 * (f->math.plot[3] - f->math.plot[2]);
 		f->math.plot[3] += 0.05 * (f->math.plot[3] - f->math.plot[2]);
@@ -48,9 +48,9 @@ void	change_iter(int key, void *param)
 	f = (t_fractal *)param;
 	if ((add = f->color.range / f->color.size) == 0)
 		add = 1;
-	if (key == PT_KEY)
+	if (key == XK_bracketright)
 		f->math.iter += add;
-	else if (key == CM_KEY)
+	else if (key == XK_bracketleft)
 		f->math.iter -= add;
 	if (f->math.iter < 0)
 		f->math.iter = 0;
@@ -62,9 +62,9 @@ void	change_escape(int key, void *param)
 	t_fractal *f;
 
 	f = (t_fractal *)param;
-	if (key == PL_KEY)
+	if (key == XK_equal)
 		f->math.escape *= 2;
-	else if (key == MN_KEY)
+	else if (key == XK_minus)
 		f->math.escape *= 0.5;
 	if (f->math.escape == 0)
 		f->math.escape = 1;

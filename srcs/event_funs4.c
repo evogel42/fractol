@@ -28,12 +28,13 @@ void	change_res(int key, void *param)
 
 	(void)key;
 	f = (t_fractal *)param;
-	if (key == PUP_KEY && f->win_y + 90 <= 4320)
+	if (key == XK_Page_Up && f->win_y + 90 <= 4320)
 		f->win_y += 90;
-	else if (key == PDOWN_KEY && f->win_y - 90 >= 180)
+	else if (key == XK_Page_Down && f->win_y - 90 >= 180)
 		f->win_y -= 90;
 	f->win_x = (int)(f->win_y * RATIO);
 	mlx_destroy_window(f->mlx.mlx_ptr, f->mlx.win_ptr);
+	mlx_destroy_display(f->mlx.mlx_ptr);
 	window_init(&f->mlx, f->win_x, f->win_y);
 	make_image(f);
 	events_manager(f);

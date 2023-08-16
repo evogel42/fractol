@@ -75,7 +75,7 @@ void		make_image(t_fractal *f)
 	t_mlx		*mlx;
 	int			i;
 
-	if (f->type != K9_KEY)
+	if (f->type != XK_9)
 	{
 		i = 0;
 		while (i < THREADS)

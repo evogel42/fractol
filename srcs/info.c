@@ -62,7 +62,7 @@ static void	make_info_text2(t_fractal *f, int i, void *mlx, void *win)
 	len = string_put(f, 150, i, f->win_x);
 	mlx_string_put(mlx, win, (len = 150 + len * 10), i, WHITE, "x");
 	string_put(f, len + 10, i, f->win_y);
-	if (f->type > K3_KEY && f->type != K9_KEY)
+	if (f->type > XK_3 && f->type != XK_9)
 	{
 		mlx_string_put(mlx, win, 20, (i += 50), WHITE, "Julia type parameter");
 		mlx_string_put(mlx, win, 20, (i += 20), WHITE,
@@ -86,8 +86,8 @@ void		make_info_text1(t_fractal *f, void *mlx, void *win)
 {
 	static char	names[8][12] = {"mandelbrot", "mandel4", "mandelverse", "julia",
 		"julia6", "julia_sin", "zubieta", "thorn"};
-	static int	nums[8] = {K1_KEY, K2_KEY, K3_KEY, K4_KEY, K5_KEY, K6_KEY,
-		K7_KEY, K8_KEY};
+	static int	nums[8] = {XK_1, XK_2, XK_3, XK_4, XK_5, XK_6,
+		XK_7, XK_8};
 	int			i;
 
 	make_info_bg(f, 270, 330, 0xAA000000);

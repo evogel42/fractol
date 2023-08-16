@@ -50,9 +50,9 @@ void	shift_range(int key, void *param)
 	t_fractal *f;
 
 	f = (t_fractal *)param;
-	if (key == NKPL_KEY)
+	if (key == XK_KP_Add)
 		f->color.range += 1 + (int)(f->color.range * 0.01);
-	else if (key == NKMN_KEY && f->color.range > 1)
+	else if (key == XK_KP_Subtract && f->color.range > 1)
 		f->color.range -= 1 + (int)(f->color.range * 0.01);
 	make_image(f);
 }

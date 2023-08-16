@@ -15,23 +15,23 @@
 static int	get_type(char *av)
 {
 	if (ft_strequ(av, "mandelbrot"))
-		return (K1_KEY);
+		return (XK_1);
 	else if (ft_strequ(av, "mandel4"))
-		return (K2_KEY);
+		return (XK_2);
 	else if (ft_strequ(av, "mandelverse"))
-		return (K3_KEY);
+		return (XK_3);
 	else if (ft_strequ(av, "julia"))
-		return (K4_KEY);
+		return (XK_4);
 	else if (ft_strequ(av, "julia6"))
-		return (K5_KEY);
+		return (XK_5);
 	else if (ft_strequ(av, "julia_sin"))
-		return (K6_KEY);
+		return (XK_6);
 	else if (ft_strequ(av, "zubieta"))
-		return (K7_KEY);
+		return (XK_7);
 	else if (ft_strequ(av, "thorn"))
-		return (K8_KEY);
+		return (XK_8);
 	else if (ft_strequ(av, "buddhabrot"))
-		return (K9_KEY);
+		return (XK_9);
 	else
 		return (-1);
 }
@@ -49,11 +49,11 @@ void		events_manager(t_fractal *f)
 	void *win;
 
 	win = f->mlx.win_ptr;
-	mlx_hook(win, KEYRELEASE, KEYRELEASEMASK, do_close1, (void*)f);
-	mlx_hook(win, DESTROYNOTIFY, 0, do_close2, (void*)f);
-	mlx_hook(win, KEYPRESS, KEYPRESSMASK, do_key, (void*)f);
-	mlx_hook(win, BUTTONPRESS, BUTTONPRESSMASK, do_mouse, (void*)f);
-	mlx_hook(win, MOTIONNOTIFY, POINTERMOTIONMASK, do_move, (void*)f);
+	mlx_hook(win, KeyRelease, KeyReleaseMask, do_close1, (void*)f);
+	mlx_hook(win, DestroyNotify, StructureNotifyMask, do_close2, (void*)f);
+	mlx_hook(win, KeyPress, KeyPressMask, do_key, (void*)f);
+	mlx_hook(win, ButtonPress, ButtonPressMask, do_mouse, (void*)f);
+	mlx_hook(win, MotionNotify, PointerMotionMask, do_move, (void*)f);
 	mlx_loop(f->mlx.mlx_ptr);
 }
 
